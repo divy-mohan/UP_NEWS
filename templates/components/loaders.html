@@ -1,0 +1,92 @@
+
+<!-- Reusable Loader Components -->
+
+<!-- Page Loader Template -->
+{% comment %}
+Usage: {% include 'components/loaders.html' with loader_type='page' message='Loading...' %}
+{% endcomment %}
+
+{% if loader_type == 'page' %}
+<div class="page-loader">
+    <div class="loader-container">
+        <div class="logo-loader">
+            <img src="{% load static %}{% static 'images/logo.svg' %}" alt="Loading">
+        </div>
+        <div class="spinner spinner-dual-ring"></div>
+        <div class="loader-text">{{ message|default:'प्रांतीय युवा प्रकोष्ठ' }}</div>
+        <div class="loader-subtitle">कृपया प्रतीक्षा करें...</div>
+        <div class="progress-bar-container">
+            <div class="progress-bar-fill"></div>
+        </div>
+    </div>
+</div>
+{% endif %}
+
+<!-- Card Loader Template -->
+{% if loader_type == 'card' %}
+<div class="card-loader-overlay">
+    <div class="spinner spinner-ring"></div>
+    <div class="loader-text">{{ message|default:'लोड हो रहा है...' }}</div>
+</div>
+{% endif %}
+
+<!-- Button Loader Template -->
+{% if loader_type == 'button' %}
+<span class="mini-loader"></span>{{ message|default:'लोड हो रहा है...' }}
+{% endif %}
+
+<!-- Skeleton Loader Templates -->
+{% if loader_type == 'skeleton_card' %}
+<div class="skeleton-wrapper">
+    <div class="skeleton skeleton-card"></div>
+    <div class="skeleton skeleton-text" style="margin-top: 1rem;"></div>
+    <div class="skeleton skeleton-text"></div>
+    <div class="skeleton skeleton-text"></div>
+</div>
+{% endif %}
+
+{% if loader_type == 'skeleton_list' %}
+<div class="skeleton-wrapper">
+    {% for i in "123" %}
+    <div style="display: flex; align-items: center; margin-bottom: 1rem;">
+        <div class="skeleton skeleton-avatar" style="margin-right: 1rem;"></div>
+        <div style="flex: 1;">
+            <div class="skeleton skeleton-text"></div>
+            <div class="skeleton skeleton-text"></div>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+{% endif %}
+
+<!-- Custom Spinner Variations -->
+{% if loader_type == 'spinner_dots' %}
+<div class="spinner spinner-dots">
+    <div class="dot"></div>
+    <div class="dot"></div>
+    <div class="dot"></div>
+</div>
+{% endif %}
+
+{% if loader_type == 'spinner_wave' %}
+<div class="spinner spinner-wave">
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+    <div class="bar"></div>
+</div>
+{% endif %}
+
+{% if loader_type == 'spinner_pulse' %}
+<div class="spinner spinner-pulse"></div>
+{% endif %}
+
+{% if loader_type == 'spinner_progress' %}
+<div class="spinner spinner-progress">
+    <svg width="60" height="60">
+        <circle class="bg-circle" cx="30" cy="30" r="28"></circle>
+        <circle class="progress-circle" cx="30" cy="30" r="28"></circle>
+    </svg>
+</div>
+{% endif %}
