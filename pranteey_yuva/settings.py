@@ -105,11 +105,18 @@ TIME_ZONE = 'Asia/Kolkata'
 USE_I18N = True
 USE_TZ = True
 
-# Static files (CSS, JavaScript, Images)
+# Build paths inside the project like this: BASE_DIR / 'subdir'.
+BASE_DIR = Path(__file__).resolve().parent.parent
+
+# Static Files (CSS, JS, Images)
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
+
+# Location where Django will collect all static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # used in production
+
+# Additional directories where Django will search for static files
 STATICFILES_DIRS = [
-    BASE_DIR / 'static',
+    os.path.join(BASE_DIR, 'static'),  # your app-level static folder
 ]
 
 # Media files
