@@ -378,8 +378,8 @@ function initializeCountUpAnimations() {
 
 function animateCountUp(element) {
     const target = parseInt(element.getAttribute('data-count') || element.textContent.replace(/\D/g, ''));
-    const duration = 2000;
-    const increment = target / (duration / 16);
+    const duration = 20;
+    const increment = target / (duration / 5);
     let current = 0;
     
     const timer = setInterval(() => {
