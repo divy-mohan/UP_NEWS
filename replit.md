@@ -112,6 +112,10 @@ This is a Django-based web application for **प्रांतीय युव�
 ## Changelog
 
 - July 02, 2025. Initial setup
+- July 02, 2025. Successfully migrated from Replit Agent to standard Replit environment
+- July 02, 2025. Replaced floating SVGs and numbers in hero section with scrolling banner system
+- July 02, 2025. Added Banner model with admin interface for managing hero banners
+- July 02, 2025. Implemented responsive banner carousel with maintained aspect ratios on all devices
 
 ## User Preferences
 

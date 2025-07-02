@@ -74,27 +74,58 @@
             </div>
             
             <div class="col-lg-6" data-aos="fade-left" data-aos-delay="400">
-                <div class="hero-image-section">
-                    <div class="hero-image-wrapper">
-                        <img src="{% static 'images/youth.svg' %}" alt="Youth Illustration" class="hero-image">
-                        <div class="hero-image-glow"></div>
+                <div class="hero-banner-section">
+                    {% if banners %}
+                    <div id="heroBannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                        <div class="carousel-inner">
+                            {% for banner in banners %}
+                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                <div class="banner-wrapper">
+                                    {% if banner.link %}
+                                        <a href="{{ banner.link }}" class="banner-link">
+                                            <img src="{{ banner.image.url }}" class="banner-image" alt="{{ banner.title }}">
+                                        </a>
+                                    {% else %}
+                                        <img src="{{ banner.image.url }}" class="banner-image" alt="{{ banner.title }}">
+                                    {% endif %}
+                                    <div class="banner-overlay">
+                                        <h5 class="banner-title">{{ banner.title }}</h5>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                        
+                        {% if banners|length > 1 %}
+                        <!-- Carousel Controls -->
+                        <button class="carousel-control-prev" type="button" data-bs-target="#heroBannerCarousel" data-bs-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Previous</span>
+                        </button>
+                        <button class="carousel-control-next" type="button" data-bs-target="#heroBannerCarousel" data-bs-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="visually-hidden">Next</span>
+                        </button>
+                        
+                        <!-- Indicators -->
+                        <div class="carousel-indicators">
+                            {% for banner in banners %}
+                            <button type="button" data-bs-target="#heroBannerCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
+                                    {% if forloop.first %}class="active" aria-current="true"{% endif %} 
+                                    aria-label="Slide {{ forloop.counter }}"></button>
+                            {% endfor %}
+                        </div>
+                        {% endif %}
                     </div>
-                    
-                    <!-- Floating Stats -->
-                    <div class="floating-stats">
-                        <div class="stat-bubble" data-aos="zoom-in" data-aos-delay="600">
-                            <div class="stat-number">5000+</div>
-                            <div class="stat-label">सदस्य</div>
-                        </div>
-                        <div class="stat-bubble" data-aos="zoom-in" data-aos-delay="800">
-                            <div class="stat-number">150+</div>
-                            <div class="stat-label">कार्यक्रम</div>
-                        </div>
-                        <div class="stat-bubble" data-aos="zoom-in" data-aos-delay="1000">
-                            <div class="stat-number">38</div>
-                            <div class="stat-label">जिले</div>
+                    {% else %}
+                    <!-- Default content when no banners -->
+                    <div class="hero-image-section">
+                        <div class="hero-image-wrapper">
+                            <img src="{% static 'images/youth.svg' %}" alt="Youth Illustration" class="hero-image">
+                            <div class="hero-image-glow"></div>
                         </div>
                     </div>
+                    {% endif %}
                 </div>
             </div>
         </div>

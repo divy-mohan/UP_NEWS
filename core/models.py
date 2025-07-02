@@ -47,3 +47,19 @@ class SiteSettings(models.Model):
     
     def __str__(self):
         return self.site_name
+
+class Banner(models.Model):
+    title = models.CharField(max_length=200, verbose_name="बैनर शीर्षक")
+    image = models.ImageField(upload_to='banners/', verbose_name="बैनर छवि")
+    link = models.URLField(blank=True, verbose_name="लिंक (वैकल्पिक)")
+    is_active = models.BooleanField(default=True, verbose_name="सक्रिय")
+    order = models.PositiveIntegerField(default=0, verbose_name="क्रम")
+    created_at = models.DateTimeField(auto_now_add=True)
+    
+    class Meta:
+        verbose_name = "बैनर"
+        verbose_name_plural = "बैनर"
+        ordering = ['order', '-created_at']
+    
+    def __str__(self):
+        return self.title

@@ -2,7 +2,7 @@ from django.shortcuts import render
 from django.core.paginator import Paginator
 from news.models import News
 from events.models import Event
-from core.models import SiteSettings
+from core.models import SiteSettings, Banner
 
 def home(request):
     """Home page view with featured content"""
@@ -17,9 +17,13 @@ def home(request):
         is_published=True
     ).order_by('event_date')[:6]
     
+    # Get active banners
+    banners = Banner.objects.filter(is_active=True).order_by('order')
+    
     context = {
         'featured_news': featured_news,
         'upcoming_events': upcoming_events,
+        'banners': banners,
     }
     return render(request, 'core/home.html', context)
 
