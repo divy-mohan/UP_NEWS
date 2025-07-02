@@ -23,9 +23,11 @@ This is a Django-based web application for **प्रांतीय युव�
 - **Color Scheme**: Saffron/Orange themed (#fd8535, #ffb300) following Indian cultural aesthetics
 
 ### Database Design
-- **Primary Models**: News, Events, EventRegistration, ContactMessage, District, Category
+- **Database**: PostgreSQL with automatic provisioning via Replit
+- **Primary Models**: News, Events, EventRegistration, ContactMessage, District, Category, Banner
 - **Media Storage**: Local file system with organized upload paths
 - **Relationships**: Foreign key relationships between content and geographic/categorical data
+- **Admin Access**: Superuser account created for content management
 
 ## Key Components
 
@@ -116,6 +118,8 @@ This is a Django-based web application for **प्रांतीय युव�
 - July 02, 2025. Replaced floating SVGs and numbers in hero section with scrolling banner system
 - July 02, 2025. Added Banner model with admin interface for managing hero banners
 - July 02, 2025. Implemented responsive banner carousel with maintained aspect ratios on all devices
+- July 02, 2025. Added PostgreSQL database with all Django models migrated successfully
+- July 02, 2025. Created admin superuser account for content management
 
 ## User Preferences
 

@@ -930,8 +930,8 @@
 
 /* Responsive Design */
 @media (max-width: 1199.98px) {
-    .floating-stats {
-        display: none;
+    .hero-banner-section {
+        max-width: 450px;
     }
 }
 
@@ -963,6 +963,15 @@
     .news-card,
     .event-card {
         margin-bottom: 2rem;
+    }
+    
+    .hero-banner-section {
+        max-width: 400px;
+        margin-top: 2rem;
+    }
+    
+    .banner-title {
+        font-size: 1.1rem;
     }
 }
 
@@ -1025,6 +1034,39 @@
     .btn-hero-secondary {
         padding: 0.8rem 1.5rem;
         font-size: 0.95rem;
+    }
+    
+    .hero-banner-section {
+        max-width: 100%;
+        margin-top: 1.5rem;
+    }
+    
+    .banner-title {
+        font-size: 1rem;
+        padding: 1rem;
+    }
+    
+    .carousel-control-prev,
+    .carousel-control-next {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .carousel-control-prev {
+        left: 10px;
+    }
+    
+    .carousel-control-next {
+        right: 10px;
+    }
+    
+    .carousel-indicators {
+        bottom: 10px;
+    }
+    
+    .carousel-indicators [data-bs-target] {
+        width: 10px;
+        height: 10px;
     }
     
     .hero-social-link {
