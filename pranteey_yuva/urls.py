@@ -16,6 +16,9 @@ urlpatterns = [
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+else:
+    # Also serve media files in production for Replit
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
 # Admin customization
 admin.site.site_header = "प्रांतीय युवा प्रकोष्ठ-उत्तर प्रदेश"
