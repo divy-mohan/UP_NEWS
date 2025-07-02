@@ -44,6 +44,12 @@ class Event(models.Model):
     @property
     def available_spots(self):
         return self.max_participants - self.registered_count
+    
+    @property
+    def registration_percentage(self):
+        if self.max_participants > 0:
+            return round((self.registered_count / self.max_participants) * 100, 1)
+        return 0
 
 class EventRegistration(models.Model):
     GENDER_CHOICES = [

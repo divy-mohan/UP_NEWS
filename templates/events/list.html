@@ -156,7 +156,7 @@
                         <div class="registration-progress">
                             <div class="progress-bar">
                                 <div class="progress-fill" 
-                                     style="width: {{ event.registered_count|floatformat:0|add:0|div:event.max_participants|mul:100 }}%"></div>
+                                     style="width: {{ event.registration_percentage }}%"></div>
                             </div>
                             <small class="progress-text">
                                 {% if event.available_spots > 0 %}
