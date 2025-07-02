@@ -11,45 +11,60 @@ from core.models import Category, District
 
 def events_list(request):
     """Events list view with filtering"""
-    events_queryset = Event.objects.filter(is_published=True)
-    
-    # Search functionality
-    search_query = request.GET.get('search', '')
-    if search_query:
-        events_queryset = events_queryset.filter(
-            Q(title__icontains=search_query) |
-            Q(description__icontains=search_query) |
-            Q(venue__icontains=search_query)
-        )
-    
-    # Category filter
-    selected_category = request.GET.get('category', '')
-    if selected_category:
-        events_queryset = events_queryset.filter(category_id=selected_category)
-    
-    # District filter
-    selected_district = request.GET.get('district', '')
-    if selected_district:
-        events_queryset = events_queryset.filter(district_id=selected_district)
-    
-    # Pagination
-    paginator = Paginator(events_queryset, 12)
-    page_number = request.GET.get('page')
-    events = paginator.get_page(page_number)
-    
-    # Get filter options
-    categories = Category.objects.filter(is_active=True)
-    districts = District.objects.filter(is_active=True)
-    
-    context = {
-        'events': events,
-        'categories': categories,
-        'districts': districts,
-        'search': search_query,
-        'selected_category': selected_category,
-        'selected_district': selected_district,
-    }
-    return render(request, 'events/list.html', context)
+    try:
+        events_queryset = Event.objects.filter(is_published=True).order_by('event_date')
+        
+        # Search functionality
+        search_query = request.GET.get('search', '')
+        if search_query:
+            events_queryset = events_queryset.filter(
+                Q(title__icontains=search_query) |
+                Q(description__icontains=search_query) |
+                Q(venue__icontains=search_query)
+            )
+        
+        # Category filter
+        selected_category = request.GET.get('category', '')
+        if selected_category and selected_category.isdigit():
+            events_queryset = events_queryset.filter(category_id=selected_category)
+        
+        # District filter
+        selected_district = request.GET.get('district', '')
+        if selected_district and selected_district.isdigit():
+            events_queryset = events_queryset.filter(district_id=selected_district)
+        
+        # Pagination
+        paginator = Paginator(events_queryset, 12)
+        page_number = request.GET.get('page')
+        events = paginator.get_page(page_number)
+        
+        # Get filter options
+        categories = Category.objects.filter(is_active=True)
+        districts = District.objects.filter(is_active=True)
+        
+        context = {
+            'events': events,
+            'categories': categories,
+            'districts': districts,
+            'search': search_query,
+            'selected_category': selected_category,
+            'selected_district': selected_district,
+        }
+        return render(request, 'events/list.html', context)
+        
+    except Exception as e:
+        # For debugging - you can remove this in production
+        print(f"Error in events_list view: {e}")
+        context = {
+            'events': [],
+            'categories': Category.objects.filter(is_active=True),
+            'districts': District.objects.filter(is_active=True),
+            'search': '',
+            'selected_category': '',
+            'selected_district': '',
+            'error': 'An error occurred while loading events.'
+        }
+        return render(request, 'events/list.html', context)
 
 def event_detail(request, pk):
     """Event detail view"""
