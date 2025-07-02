@@ -104,15 +104,14 @@ class EventImage(models.Model):
 from django.db import models
 from django.urls import reverse
 from django.utils.text import slugify
-from ckeditor_uploader.fields import RichTextUploadingField
+from ckeditor.fields import RichTextField
 from core.models import District, Category
 import uuid
-from ckeditor.fields import RichTextField  # Correct import
 
 class Event(models.Model):
     title = models.CharField(max_length=200, verbose_name="कार्यक्रम नाम")
     slug = models.SlugField(unique=True, blank=True)
-    description = RichTextField(verbose_name="विवरण", config_name='admin') # Using RichTextField and admin config
+    description = RichTextField(verbose_name="विवरण", config_name='admin')
     category = models.ForeignKey(Category, on_delete=models.CASCADE, verbose_name="श्रेणी")
     district = models.ForeignKey(District, on_delete=models.CASCADE, verbose_name="जिला")
     venue = models.CharField(max_length=200, verbose_name="स्थान")
