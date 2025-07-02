@@ -123,15 +123,67 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 CKEDITOR_UPLOAD_PATH = "uploads/"
 CKEDITOR_CONFIGS = {
     'default': {
-        'toolbar': 'Custom',
-        'toolbar_Custom': [
-            ['Bold', 'Italic', 'Underline'],
-            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock'],
-            ['Link', 'Unlink'],
-            ['RemoveFormat', 'Source']
-        ],
-        'height': 300,
+        'toolbar': 'full',
+        'height': 400,
         'width': '100%',
+        'removePlugins': '',
+        'allowedContent': True,
+        'extraAllowedContent': '*(*);*{*}',
+    },
+    'admin': {
+        'toolbar': [
+            ['Source', 'Save', 'NewPage', 'Preview', 'Print', '-', 'Templates'],
+            ['Cut', 'Copy', 'Paste', 'PasteText', 'PasteFromWord', '-', 'Undo', 'Redo'],
+            ['Find', 'Replace', '-', 'SelectAll', '-', 'Scayt'],
+            ['Form', 'Checkbox', 'Radio', 'TextField', 'Textarea', 'Select', 'Button', 'ImageButton', 'HiddenField'],
+            '/',
+            ['Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript', '-', 'RemoveFormat'],
+            ['NumberedList', 'BulletedList', '-', 'Outdent', 'Indent', '-', 'Blockquote', 'CreateDiv', '-', 'JustifyLeft', 'JustifyCenter', 'JustifyRight', 'JustifyBlock', '-', 'BidiLtr', 'BidiRtl'],
+            ['Link', 'Unlink', 'Anchor'],
+            ['Image', 'Flash', 'Table', 'HorizontalRule', 'Smiley', 'SpecialChar', 'PageBreak', 'Iframe'],
+            '/',
+            ['Styles', 'Format', 'Font', 'FontSize'],
+            ['TextColor', 'BGColor'],
+            ['Maximize', 'ShowBlocks']
+        ],
+        'height': 500,
+        'width': '100%',
+        'removePlugins': '',
+        'allowedContent': True,
+        'extraAllowedContent': '*(*);*{*}',
+        'extraPlugins': 'colordialog,colorbutton',
+        'colorButton_enableMore': True,
+        'colorButton_enableAutomatic': True,
+        'colorButton_colors': '000,800000,8B4513,2F4F4F,008080,000080,4B0082,696969,' +
+                             'B22222,A52A2A,DAA520,006400,40E0D0,0000CD,800080,808080,' +
+                             'F00,FF8C00,FFD700,008000,0FF,00F,EE82EE,A9A9A9,' +
+                             'FFA07A,FFA500,FFFF00,00FF00,AFEEEE,ADD8E6,DDA0DD,D3D3D3,' +
+                             'FFF0F5,FAEBD7,FFFFE0,F0FFF0,F0FFFF,F0F8FF,E6E6FA,FFF,' +
+                             'FF69B4,DC143C,FF1493,FF6347,FF4500,FFA500,FFD700,ADFF2F,' +
+                             '32CD32,00FF7F,00CED1,1E90FF,9370DB,BA55D3,FF20DD,F0E68C',
+        'format_tags': 'p;h1;h2;h3;h4;h5;h6;pre;address;div',
+        'entities': False,
+        'removeDialogTabs': '',
+        'stylesSet': [
+            {'name': 'Marker: Yellow', 'element': 'span', 'styles': {'background-color': 'Yellow'}},
+            {'name': 'Marker: Green', 'element': 'span', 'styles': {'background-color': 'Lime'}},
+            {'name': 'Marker: Pink', 'element': 'span', 'styles': {'background-color': 'HotPink'}},
+            {'name': 'Marker: Blue', 'element': 'span', 'styles': {'background-color': 'LightBlue'}},
+            {'name': 'Red Text', 'element': 'span', 'styles': {'color': 'Red'}},
+            {'name': 'Blue Text', 'element': 'span', 'styles': {'color': 'Blue'}},
+            {'name': 'Green Text', 'element': 'span', 'styles': {'color': 'Green'}},
+            {'name': 'Orange Text', 'element': 'span', 'styles': {'color': 'Orange'}},
+            {'name': 'Big', 'element': 'big'},
+            {'name': 'Small', 'element': 'small'},
+            {'name': 'Computer Code', 'element': 'code'},
+            {'name': 'Keyboard Phrase', 'element': 'kbd'},
+            {'name': 'Sample Text', 'element': 'samp'},
+            {'name': 'Variable', 'element': 'var'},
+            {'name': 'Deleted Text', 'element': 'del'},
+            {'name': 'Inserted Text', 'element': 'ins'},
+            {'name': 'Cited Work', 'element': 'cite'},
+            {'name': 'Inline Quotation', 'element': 'q'},
+        ],
     }
 }
 
