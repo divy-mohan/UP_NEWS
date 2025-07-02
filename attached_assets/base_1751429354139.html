@@ -1,0 +1,127 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}प्रांतीय युवा प्रकोष्ठ-उत्तर प्रदेश{% endblock %}</title>
+
+    <!-- Bootstrap + Icons -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" rel="stylesheet">
+
+    <!-- Custom Theme CSS -->
+    <link rel="stylesheet" href="{% static 'css/base.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="wrapper d-flex flex-column min-vh-100">
+        
+        <!-- 🔶 Modern Bootstrap Navbar -->
+        <header class="shadow-sm">
+            <nav class="navbar navbar-expand-lg" style="background: linear-gradient(45deg, #fff8e1, #fdd835);">
+                <div class="container">
+                    <a class="navbar-brand fw-bold text-dark" href="{% url 'core:home' %}">
+                        <i class="bi bi-flag-fill text-warning me-2"></i>
+                        प्रांतीय युवा प्रकोष्ठ-उत्तर प्रदेश
+                        <div class="english-title">Provincial Youth Cell - Uttar Pradesh</div>
+                    </a>
+                    
+                    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#mainNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="collapse navbar-collapse" id="mainNavbar">
+                        <ul class="navbar-nav ms-auto mb-2 mb-lg-0 fw-semibold">
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'core:home' %}">मुख्य पृष्ठ</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'news:list' %}">समाचार</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'events:list' %}">गतिविधियां</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'core:about' %}">हमारे बारे में</a></li>
+                            <li class="nav-item"><a class="nav-link text-dark" href="{% url 'contact:contact' %}">संपर्क</a></li>
+                        </ul>
+                    </div>
+                </div>
+            </nav>
+        </header>
+
+        <!-- 🔔 Flash Messages -->
+        {% if messages %}
+            <div class="container mt-3">
+                {% for message in messages %}
+                    <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+                    </div>
+                {% endfor %}
+            </div>
+        {% endif %}
+
+        <!-- 🔰 Main Content -->
+        <main class="main-content flex-grow-1 py-4">
+            {% block content %}{% endblock %}
+        </main>
+
+        <!-- filepath: e:\Divy\Projects\GitHub\pypup\templates\base.html -->
+        <footer class="footer-section mt-auto elegant-footer">
+            <div class="container py-4">
+                <div class="text-center mb-4">
+                    <h4 class="fw-bold mb-1 footer-title">प्रांतीय युवा प्रकोष्ठ-उत्तर प्रदेश</h4>
+                    <p class="footer-tagline mb-3">युवाओं के सशक्तिकरण और राष्ट्र निर्माण में योगदान देने के लिए समर्पित संगठन।</p>
+                    <div class="d-flex justify-content-center gap-3 fs-4 social-icons-footer">
+                        <a href="#" class="footer-social"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-twitter"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+                        <a href="#" class="footer-social"><i class="fab fa-youtube"></i></a>
+                    </div>
+                </div>
+                <div class="row text-start mb-3">
+                    <div class="col-md-4 mb-3">
+                        <h6 class="footer-heading">Quick Links</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="{% url 'core:home' %}" class="footer-link">मुख्य पृष्ठ</a></li>
+                            <li><a href="{% url 'news:list' %}" class="footer-link">समाचार</a></li>
+                            <li><a href="{% url 'events:list' %}" class="footer-link">गतिविधियां</a></li>
+                            <li><a href="{% url 'core:about' %}" class="footer-link">हमारे बारे में</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h6 class="footer-heading">Categories</h6>
+                        <ul class="list-unstyled">
+                            <li><a href="#" class="footer-link">समाजसेवा</a></li>
+                            <li><a href="#" class="footer-link">शिक्षा</a></li>
+                            <li><a href="#" class="footer-link">युवा गतिविधि</a></li>
+                            <li><a href="#" class="footer-link">सांस्कृतिक</a></li>
+                        </ul>
+                    </div>
+                    <div class="col-md-4 mb-3">
+                        <h6 class="footer-heading">Contact</h6>
+                        <ul class="list-unstyled">
+                            <li><i class="fas fa-map-marker-alt me-2"></i> सुल्तानपुर - उत्तर प्रदेश</li>
+                            <li><i class="fab fa-whatsapp me-2 text-success"></i> +91 9415156122</li>
+                            <li><i class="fas fa-phone me-2 text-primary"></i> +91 700722727</li>
+                            <li><i class="fas fa-envelope me-2 text-danger"></i> info@pranteeyyuva.org</li>
+                        </ul>
+                    </div>
+                </div>
+                <hr class="footer-divider mb-3">
+                <div class="d-flex justify-content-between flex-wrap align-items-center small-footer">
+                    <p class="mb-0">&copy; 2025 प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश- सभी अधिकार सुरक्षित।</p>
+                    <a href="/admin" class="footer-link admin-link">एडमिन पैनल</a>
+                </div>
+            </div>
+        </footer>
+
+    <!-- Bootstrap JS -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+    <script>
+      AOS.init({
+        duration: 800,
+        once: true,
+        offset: 60,
+      });
+    </script>
+</body>
+</html>

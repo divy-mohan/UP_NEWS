@@ -1,0 +1,364 @@
+/* ======= Base Theme for Gayatri Pariwar Style ======= */
+
+/* Global Theme Colors */
+:root {
+    --primary-color: #fd8535;  /* Sun Yellow */
+    --secondary-color: #fff8e1; /* Light cream-yellow */
+    --accent-color: #ffb300;   /* Deep saffron */
+    --text-dark: #333;
+    --text-light: #fff;
+    --nav-hover-bg: #ffe082;
+}
+
+body {
+    font-family: 'Segoe UI', sans-serif;
+    background-color: #fffef5;
+    color: #333;
+}
+
+a {
+    transition: all 0.3s ease-in-out;
+}
+
+a:hover {
+    opacity: 0.8;
+    text-decoration: underline;
+}
+
+
+/* Header */
+.main-header {
+    background: var(--primary-color);
+    border-bottom: 2px solid var(--accent-color);
+    padding: 0.5rem 1rem;
+}
+
+.header-flex {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+}
+
+.hindi-title {
+    font-size: 1.6rem;
+    font-weight: bold;
+    color: var(--text-dark);
+}
+
+.english-title {
+    font-size: 0.9rem;
+    color: #444;
+}
+
+/* Navbar */
+.nav-bar ul {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-bar a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+    transition: 0.3s ease;
+}
+
+.nav-bar a:hover {
+    background-color: var(--nav-hover-bg);
+    padding: 6px 12px;
+    border-radius: 8px;
+    color: #000;
+}
+
+/* Flag Icon */
+.flag-icon {
+    font-size: 2rem;
+    color: var(--accent-color);
+    margin-right: 1rem;
+}
+
+/* Flash Messages */
+.alert {
+    border-radius: 0.5rem;
+}
+
+/* Footer */
+.footer-section {
+    background-color: var(--accent-color);
+    color: var(--text-light);
+    padding: 2rem 0 1rem;
+    margin-top: auto;
+}
+
+.footer-section h4, .footer-section h6 {
+    color: var(--text-light);
+}
+
+.footer-section a {
+    color: #fff3cd;
+    text-decoration: none;
+}
+
+.footer-section a:hover {
+    text-decoration: underline;
+}
+
+.social-icons a {
+    color: #fff;
+    margin-right: 10px;
+    font-size: 1.2rem;
+    transition: 0.3s ease;
+}
+
+.social-icons a:hover {
+    color: #ffd54f;
+}
+
+/* Footer Bottom */
+.footer-bottom {
+    border-top: 1px solid #fff;
+    margin-top: 1rem;
+    padding-top: 1rem;
+    font-size: 0.9rem;
+}
+
+.admin-link {
+    color: #fff;
+    font-weight: 500;
+}
+
+.admin-link:hover {
+    color: #212121;
+    background: #fff8e1;
+    padding: 4px 10px;
+    border-radius: 6px;
+}
+
+/* Elegant Footer */
+.elegant-footer {
+    background: linear-gradient(120deg, #ffb300 0%, #833400 100%);
+    border-radius: 24px 24px 0 0;
+    box-shadow: 0 -2px 24px rgba(0,0,0,0.07);
+    padding-top: 2.5rem;
+    padding-bottom: 1.5rem;
+    margin-top: 2rem;
+    font-family: 'Poppins', 'Segoe UI', sans-serif;
+}
+
+.footer-title {
+    font-family: 'Poppins', sans-serif;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    color: #410303; /* Deep brown for main title */
+}
+
+.footer-tagline {
+    color: #2d2d2d; /* Dark gray for tagline */
+    font-size: 1.1rem;
+    font-weight: 500;
+}
+
+.footer-heading {
+    color: #205c20; /* Dark green for headings */
+    font-size: 1.1rem;
+    font-weight: 600;
+    margin-bottom: 0.7rem;
+    letter-spacing: 0.5px;
+}
+
+.footer-link {
+    color: #205c20; /* Dark green for links */
+    text-decoration: none;
+    font-weight: 500;
+    transition: color 0.2s, text-shadow 0.2s;
+    display: inline-block;
+    padding: 2px 0;
+}
+
+.footer-link:hover, .admin-link:hover {
+    color: #410303; /* Deep brown on hover */
+    text-shadow: 0 2px 8px #ffb30033;
+    text-decoration: underline;
+}
+
+.footer-divider {
+    border-top: 1.5px solid #fff3cd;
+    opacity: 0.5;
+}
+
+.social-icons-footer .footer-social {
+    color: #fff;
+    background: rgba(255,255,255,0.08);
+    border-radius: 50%;
+    width: 38px;
+    height: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, color 0.2s, transform 0.2s;
+    font-size: 1.3rem;
+}
+
+.social-icons-footer .footer-social:hover {
+    background: #fff;
+    color: #ff9800;
+    transform: translateY(-3px) scale(1.12);
+    box-shadow: 0 2px 12px #ffb30033;
+}
+
+.small-footer {
+    font-size: 1rem;
+    color: #2d2d2d; /* Dark gray for copyright */
+    gap: 1.5rem;
+}
+
+@media (max-width: 767px) {
+    .elegant-footer {
+        border-radius: 16px 16px 0 0;
+        padding-top: 1.2rem;
+        padding-bottom: 0.7rem;
+    }
+    .footer-title {
+        font-size: 1.3rem;
+    }
+    .footer-heading {
+        font-size: 1rem;
+    }
+    .small-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+}
+
+/* Responsive Header & Navbar */
+@media (max-width: 991px) {
+    .header-flex {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.7rem;
+    }
+    .main-header {
+        padding: 0.7rem 0.5rem;
+    }
+    .hindi-title {
+        font-size: 1.2rem;
+    }
+    .english-title {
+        font-size: 0.8rem;
+    }
+    .nav-bar ul {
+        flex-direction: column;
+        gap: 0.7rem;
+        width: 100%;
+    }
+    .nav-bar a {
+        padding: 8px 0;
+        width: 100%;
+        display: block;
+    }
+}
+
+/* Responsive Footer */
+@media (max-width: 991px) {
+    .footer-section,
+    .elegant-footer {
+        padding: 1.2rem 0 0.7rem 0;
+        border-radius: 16px 16px 0 0;
+    }
+    .footer-title {
+        font-size: 1.2rem;
+        text-align: center;
+    }
+    .footer-heading {
+        font-size: 1rem;
+    }
+    .footer-tagline {
+        font-size: 1rem;
+        text-align: center;
+    }
+    .footer-section .row,
+    .elegant-footer .row {
+        flex-direction: column;
+        gap: 1.2rem;
+    }
+    .footer-section .col-md-4,
+    .elegant-footer .col-md-4 {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    .small-footer {
+        flex-direction: column;
+        gap: 0.5rem;
+        text-align: center;
+    }
+    .social-icons-footer {
+        justify-content: center;
+        margin-bottom: 1rem;
+    }
+}
+
+/* Extra Small Devices */
+@media (max-width: 575px) {
+    .main-header {
+        padding: 0.4rem 0.2rem;
+    }
+    .footer-title {
+        font-size: 1rem;
+    }
+    .footer-heading {
+        font-size: 0.95rem;
+    }
+    .footer-tagline {
+        font-size: 0.95rem;
+    }
+    .footer-section,
+    .elegant-footer {
+        padding: 0.7rem 0 0.5rem 0;
+    }
+}
+
+/* Utility: Make sure text and icons scale down */
+@media (max-width: 400px) {
+    .footer-title,
+    .footer-heading,
+    .footer-tagline {
+        font-size: 0.85rem;
+    }
+    .social-icons-footer .footer-social {
+        width: 28px;
+        height: 28px;
+        font-size: 1rem;
+    }
+}
+
+.footer-section,
+.elegant-footer {
+    color: #2d2d2d !important; /* Dark gray for all footer text */
+    background: linear-gradient(120deg, #ffb300 0%, #fd8535 100%);
+}
+
+/* Ensure all headings and links in the footer are dark */
+
+
+
+
+.footer-section h4 {
+    color: #3d0d00 !important; /* Or #410303 for brown, as you prefer */
+}
+.footer-section h6 {
+    color: #205c20 !important; /* Or #410303 for brown, as you prefer */
+}
+
+/* Social icons remain white for contrast */
+.social-icons-footer .footer-social {
+    color: #fff;
+}
+
+.social-icons-footer .footer-social:hover {
+    color: #ff0000; /* Change hover color to match primary */
+}

@@ -1,0 +1,691 @@
+/* Import Adobe Font (example: Source Serif Pro) */
+@import url('https://fonts.googleapis.com/css2?family=Source+Serif+Pro:wght@700&display=swap');
+
+/* Custom Font Face */
+@font-face {
+    font-family: 'Adobe Devanagari';
+    src: url('../fonts/AdobeDevanagari-Bold.otf') format('opentype');
+    font-weight: bold;
+    font-style: normal;
+}
+
+.title{
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal;
+  margin-bottom: 10%;
+  color: linear-gradient(135deg, #fd8535, #ffb300);
+}
+
+.typewriter {
+  overflow: hidden;
+  white-space: nowrap;
+  margin: 0 auto;
+  padding-top: 5%;
+  letter-spacing: 2px;
+  width: 0;
+  animation: typing-smooth 4s linear infinite;
+  display: inline-block;
+  line-height: 1.2;
+  padding-bottom: 6px; /* Add a bit of space below */
+}
+.poppins-bold,
+/* h1, h2, h3, h4, h5, h6, */
+.section-title,
+.join-heading {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal;
+}
+.py-3 {
+    padding-top: 1.2rem !important;
+    padding-bottom: 1.2rem !important;
+}
+
+/* Root Color Palette */
+:root {
+  --primary-color: #fd8535;       /* Sun Yellow */
+  --secondary-color: #fff8e1;     /* Light cream-yellow */
+  --accent-color: #ffb300;        /* Deep saffron */
+  --success-green: #388e3c;       /* Deep Green */
+  --text-dark: #2e2e2e;
+  --text-light: #ffffff;
+  --nav-hover-bg: #ffe082;
+  --card-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  --transition-fast: 0.3s;
+}
+
+/* Universal Reset */
+body {
+  font-family: 'Segoe UI', sans-serif;
+  color: var(--text-dark);
+  background-color: #fffdf8;
+  margin: 0;
+  padding: 0;
+}
+
+/* Hero Section */
+.hero-section {
+  background: linear-gradient(120deg, #fff8e1 0%, #ffe0b2 100%);
+  min-height: 480px;
+  padding: 70px 0 40px 0;
+  padding-left: 40px; /* Add gap from left */
+  position: relative;
+  z-index: 1;
+  border-radius: 0 0 36px 36px;
+  box-shadow: 0 8px 32px rgba(253, 133, 53, 0.07);
+  overflow: hidden;
+}
+
+.hero-section .row-1 {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.col-left {
+  flex: 1;
+  min-width: 300px;
+  padding-right: 30px;
+  animation: fadeInLeft var(--transition-fast) ease-in-out;
+}
+
+.col-right {
+  flex: 1;
+  text-align: center;
+  animation: fadeInRight var(--transition-fast) ease-in-out;
+}
+
+.hero-section .title {
+  font-size: 3rem;
+  font-weight: bold;
+  color: var(--primary-color);
+}
+
+.title-description {
+  font-size: 1.2rem;
+  color: #555;
+  margin: 20px 0;
+}
+
+.btn-group .btn {
+  margin-right: 10px;
+  padding: 10px 20px;
+  font-weight: 500;
+  transition: background var(--transition-fast);
+}
+
+.join-btn {
+  background: linear-gradient(90deg, #fd8535 0%, #ffb300 100%);
+  color: #fff;
+  border: none;
+}
+
+.join-btn:hover {
+  background: linear-gradient(90deg, #ffb300 0%, #fd8535 100%);
+  color: #fff;
+  transform: translateY(-2px) scale(1.04);
+}
+
+.learn-btn {
+  background: #fff;
+  color: #fd8535;
+  border: 2px solid #fd8535;
+}
+
+.learn-btn:hover {
+  background: #fff8e1;
+  color: #ffb300;
+  border-color: #ffb300;
+}
+
+/* Section Titles */
+.section-title {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: 30px;
+  color: var(--primary-color);
+}
+
+/* --- News Card Enhancements --- */
+.news-card {
+    border: none;
+    border-radius: 18px;
+    overflow: hidden;
+    transition: box-shadow 0.3s, transform 0.3s;
+    background: #fff;
+    position: relative;
+}
+.news-card:hover {
+    box-shadow: 0 8px 32px rgba(0,0,0,0.18), 0 1.5px 8px rgba(0,0,0,0.10);
+    transform: translateY(-6px) scale(1.03);
+}
+.image-wrapper {
+    height: 220px;
+    overflow: hidden;
+}
+.news-card .card-img-top {
+    object-fit: cover;
+    height: 100%;
+    width: 100%;
+    transition: transform 0.4s cubic-bezier(.4,2,.6,.8);
+}
+.news-card:hover .card-img-top {
+    transform: scale(1.02) rotate(-0.5deg);
+}
+.image-overlay {
+    opacity: 0;
+    font-size: 1.2rem;
+    letter-spacing: 0.5px;
+    transition: opacity 0.4s;
+    text-align: center;
+    padding: 0 10px;
+}
+
+.section-title {
+    font-weight: 700;
+    font-size: 2rem;
+    letter-spacing: 1px;
+    margin-bottom: 1.5rem;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+.badge.bg-primary {
+    background: linear-gradient(90deg, #ff9800 0%, #ff5722 100%);
+    color: #fff;
+    font-weight: 600;
+    font-size: 0.95rem;
+    border-radius: 8px;
+    padding: 0.5em 1em;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.08);
+}
+.card-title {
+    font-weight: 700;
+    color: #1a237e;
+    margin-bottom: 0.5rem;
+}
+.card-text {
+    color: #444;
+    min-height: 56px;
+}
+.news-card .btn-attractive {
+    background: linear-gradient(90deg, #ff9800 0%, #ff5722 100%);
+    color: #fff;
+    border: none;
+    border-radius: 20px;
+    padding: 0.4em 1.4em;
+    font-weight: 600;
+    font-size: 1rem;
+    box-shadow: 0 2px 8px rgba(255,152,0,0.15);
+    transition: background 0.3s, transform 0.2s;
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
+}
+.news-card .btn-attractive:hover, .btn-attractive:focus {
+    background: linear-gradient(90deg, #ff5722 0%, #ff9800 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 4px 16px rgba(255,87,34,0.18);
+}
+.news-card .stats {
+    font-size: 0.98rem;
+    color: #ff9800;
+    font-weight: 500;
+    gap: 1.2em;
+    display: flex;
+    align-items: center;
+}
+
+.news-card .card-title,
+.news-card .card-text {
+    font-family: 'Adobe Devanagari', serif;
+}
+
+/* News Card Title Styling */
+.news-card .card-title {
+    font-family: 'Adobe Devanagari', serif;
+    color: #005c0c; /* Deep blue, change as needed */
+    font-weight: bolder;
+    font-size: 2rem;
+    margin-bottom: -15%; /* Remove margin between title and summary */
+    line-height: 1.2;
+}
+
+@media (max-width: 991px) {
+    .image-wrapper { height: 180px; }
+}
+@media (max-width: 767px) {
+    .image-wrapper { height: 140px; }
+    .section-title { font-size: 1.3rem; }
+}
+/* Event Cards */
+.event-card {
+  border-radius: 16px;
+  transition: transform 0.3s ease;
+  box-shadow: var(--card-shadow);
+}
+
+.event-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+}
+
+.event-card .card-title {
+  font-weight: bold;
+  color: var(--success-green);
+}
+
+
+/* stats section */
+
+---------------------------------------------- */
+.stats-section {
+  padding: 50px 15px;
+  background-color: var(--secondary-color);
+}
+
+.stats-row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between; /* or space-around */
+  gap: 20px;
+}
+.stat-item {
+  background: linear-gradient(135deg, #fff 40%, #ffcb6a 100%);
+  flex: 0 0 calc(25% - 20px);
+  border-radius: 16px;
+  padding: 30px 20px;
+  box-shadow: var(--card-shadow);
+  text-align: center;
+  transition: all 0.3s ease;
+}
+
+.stat-item:hover {
+  transform: translateY(-5px);
+  border-right: 6px solid var(--success-green);
+}
+
+.stat-icon {
+  font-size: 2.8rem;
+  color: var(--primary-color);
+  margin-bottom: 10px;
+}
+
+.counter {
+  font-size: 2rem;
+  font-weight: 700;
+  color: var(--success-green);
+}
+
+.stat-item p {
+  font-size: 1rem;
+  color: #555;
+  margin-top: 8px;
+}
+
+/* ----------------------------------------------
+   RESPONSIVE GRID SYSTEM FOR STATS
+---------------------------------------------- */
+@media (max-width: 768px) {
+  .stat-item {
+    margin-left: 10%;
+    flex: 0 0 100%;
+  }
+}
+
+/* ----------------------------------------------
+   AOS ANIMATION BASE
+---------------------------------------------- */
+[data-aos] {
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+@media (max-width: 575px) {
+  [data-aos] {
+    overflow-x: hidden;
+  }
+}
+
+
+
+/* CTA Section */
+.join-section {
+  background: linear-gradient(135deg, var(--success-green), var(--accent-color));
+  color: #fff;
+}
+
+.join-heading {
+  font-size: 2.2rem;
+  font-weight: 700;
+}
+
+.join-subtext {
+  font-size: 1.2rem;
+  opacity: 0.9;
+}
+
+.join-buttons .btn {
+  margin: 10px;
+  padding: 12px 24px;
+  font-weight: bold;
+  border-radius: 30px;
+  transition: background 0.3s ease;
+}
+
+.contact-btn {
+  background-color: #fff;
+  color: var(--success-green);
+  border: 2px solid #fff;
+}
+
+.contact-btn:hover {
+  background-color: #fff8e1;
+}
+
+@keyframes fadeInLeft {
+  from {
+    opacity: 0;
+    transform: translateX(-40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes fadeInRight {
+  from {
+    opacity: 0;
+    transform: translateX(40px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Responsive Tweaks */
+@media (max-width: 768px) {
+  .hero-section .row-1 {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .col-left,
+  .col-right {
+    padding: 0;
+  }
+
+  .news-card,
+  .event-card {
+    margin-bottom: 30px;
+  }
+}
+
+@media (max-width: 991px) {
+    .image-wrapper { height: 180px; }
+}
+@media (max-width: 767px) {
+    .image-wrapper { height: 140px; }
+    .section-title { font-size: 1.3rem; }
+}
+
+
+@keyframes typing-smooth {
+  0% {
+    width: 0;
+  }
+  80% {
+    width: 28ch; /* Adjust to match your title length */
+  }
+  100% {
+    width: 0;
+  }
+}
+.hero-bg-decor {
+  position: absolute;
+  right: -120px;
+  top: -80px;
+  width: 340px;
+  height: 340px;
+  background: radial-gradient(circle at 60% 40%, #fd8535 0%, #ffb300 80%, transparent 100%);
+  opacity: 0.18;
+  z-index: 0;
+  pointer-events: none;
+}
+.hero-badge {
+  background: linear-gradient(90deg, #ffb300 0%, #fd8535 100%);
+  color: #fff;
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.3rem;
+  box-shadow: 0 2px 8px #fd853533;
+}
+.hero-badge-text {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #fd8535;
+  letter-spacing: 1px;
+}
+.title {
+  font-family: "Poppins", sans-serif !important;
+  font-weight: 700 !important;
+  font-style: normal;
+  font-size: 2.7rem;
+  margin-bottom: 0.7rem;
+  background: none;
+}
+.gradient-text {
+  background: linear-gradient(90deg, #fd8535 10%, #ffb300 90%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.title-description {
+  font-size: 1.15rem;
+  color: #444;
+  margin-bottom: 1.5rem;
+  font-weight: 500;
+}
+.btn-group .btn {
+  margin-right: 12px;
+  padding: 12px 28px;
+  font-weight: 600;
+  font-size: 1.08rem;
+  border-radius: 24px;
+  box-shadow: 0 2px 12px #fd853522;
+  transition: background 0.3s, transform 0.2s;
+}
+.btn-group .btn:last-child {
+  margin-right: 0;
+}
+.news-list-btn {
+    font-size: 1.18rem;
+    padding: 0.7em 2.2em;
+    background: linear-gradient(90deg, #fd8535 0%, #ffb300 100%);
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    font-weight: 700;
+    box-shadow: 0 4px 18px #fd853544;
+    transition: background 0.3s, transform 0.18s, box-shadow 0.18s;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.7em;
+    letter-spacing: 0.5px;
+    position: relative;
+    overflow: hidden;
+}
+.news-list-btn:hover, .news-list-btn:focus {
+    background: linear-gradient(90deg, #ffb300 0%, #fd8535 100%);
+    color: #fff;
+    transform: translateY(-2px) scale(1.04);
+    box-shadow: 0 8px 32px #fd853555;
+    text-decoration: none;
+}
+.news-list-btn i {
+    font-size: 1.3em;
+    transition: transform 0.2s;
+}
+.news-list-btn:hover i {
+    transform: translateX(6px) scale(1.12);
+}
+
+/* Responsive Hero Section */
+@media (max-width: 991px) {
+  .hero-section {
+    padding: 32px 0 20px 0;
+    padding-left: 12px;
+    min-height: 320px;
+    border-radius: 0 0 18px 18px;
+  }
+  .hero-section .row-1 {
+    flex-direction: column;
+    text-align: center;
+    gap: 1.5rem;
+  }
+  .col-left, .col-right {
+    padding: 0 !important;
+    margin-left: 0 !important;
+    max-width: 100%;
+  }
+  .hero-img {
+    max-width: 180px;
+    margin: 0 auto;
+  }
+  .title {
+    font-size: 1.5rem;
+  }
+  .title-description {
+    font-size: 1rem;
+  }
+  .btn-group .btn {
+    font-size: 1rem;
+    padding: 10px 18px;
+  }
+  .hero-badge, .hero-social-link {
+    width: 28px;
+    height: 28px;
+    font-size: 1rem;
+  }
+}
+
+/* Extra Small Devices */
+@media (max-width: 575px) {
+  .hero-section {
+    padding: 16px 0 8px 0;
+    min-height: 160px;
+    border-radius: 0 0 10px 10px;
+  }
+  .title {
+    font-size: 1.1rem;
+  }
+  .hero-img {
+    max-width: 100px;
+  }
+  .btn-group .btn, .news-list-btn {
+    font-size: 0.95rem;
+    padding: 8px 12px;
+  }
+}
+
+/* Responsive News/Event Cards */
+@media (max-width: 991px) {
+  .news-card, .event-card {
+    margin-bottom: 24px;
+  }
+  .col-lg-4, .col-md-3 {
+    flex: 0 0 100%;
+    max-width: 100%;
+  }
+  .image-wrapper {
+    height: 120px;
+  }
+}
+@media (max-width: 767px) {
+  .news-card .card-title, .event-card .card-title {
+    font-size: 1.1rem;
+  }
+  .card-text {
+    font-size: 0.95rem;
+  }
+}
+
+
+
+/* Responsive Join/CTA Section */
+@media (max-width: 767px) {
+  .join-section {
+    padding: 1.2rem 0.5rem;
+    text-align: center;
+  }
+  .join-heading {
+    font-size: 1.2rem;
+  }
+  .join-buttons .btn {
+    font-size: 1rem;
+    padding: 8px 16px;
+  }
+}
+
+/* Responsive Footer (already in base.css, but for safety) */
+@media (max-width: 991px) {
+  .footer-section,
+  .elegant-footer {
+    padding: 1.2rem 0 0.7rem 0;
+    border-radius: 16px 16px 0 0;
+  }
+  .footer-title {
+    font-size: 1.2rem;
+    text-align: center;
+  }
+  .footer-heading {
+    font-size: 1rem;
+  }
+  .footer-tagline {
+    font-size: 1rem;
+    text-align: center;
+  }
+  .footer-section .row,
+  .elegant-footer .row {
+    flex-direction: column;
+    gap: 1.2rem;
+  }
+  .footer-section .col-md-4,
+  .elegant-footer .col-md-4 {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  .small-footer {
+    flex-direction: column;
+    gap: 0.5rem;
+    text-align: center;
+  }
+  .social-icons-footer {
+    justify-content: center;
+    margin-bottom: 1rem;
+  }
+}
+
+/* Animations: Ensure all AOS and custom animations are smooth and mobile-friendly */
+[data-aos] {
+  transition-property: opacity, transform;
+  transition-duration: 0.7s;
+  transition-timing-function: cubic-bezier(.4,0,.2,1);
+}
+
+/* Utility: Hide overflow for animated elements on mobile if needed */
+@media (max-width: 575px) {
+  [data-aos] {
+    overflow-x: hidden;
+  }
+}

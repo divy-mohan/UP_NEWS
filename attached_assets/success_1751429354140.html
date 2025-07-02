@@ -1,0 +1,25 @@
+<!-- filepath: e:\Divy\Projects\pranteey_yuva_django\templates\events\success.html -->
+{% extends 'base.html' %}
+{% load static %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+{% endblock %}
+
+{% block title %}पंजीकरण सफल{% endblock %}
+
+{% block content %}
+<div class="container py-5 mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-6">
+            <div class="alert alert-success text-center shadow-lg">
+                <h3 class="mb-3">पंजीकरण सफल!</h3>
+                <p>धन्यवाद, <strong>{{ registration.full_name }}</strong>। आपका पंजीकरण सफल रहा।</p>
+                <p>आपका रजिस्ट्रेशन नंबर: <strong>{{ registration.registration_number }}</strong></p>
+                <a href="{% url 'events:download_id_card' registration.id %}" class="btn btn-primary mt-2">ID कार्ड डाउनलोड करें</a>
+                <a href="{% url 'events:email_id_card' registration.id %}" class="btn btn-outline-success mt-2">ID कार्ड ईमेल करें</a>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

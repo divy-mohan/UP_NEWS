@@ -1,0 +1,271 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}समाचार - प्रांतीय युवा प्रकोष्ठ बिहार{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'list.css' %}">
+    <link rel="stylesheet" href="{% static 'base.css' %}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+{% endblock %}
+
+{% block content %}
+<!--div class="hero-section bg-primary text-white py-4 mt-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <h1 class="display-5 fw-bold">समाचार</h1>
+                <p class="lead">प्रांतीय युवा प्रकोष्ठ बिहार की नवीनतम गतिविधियां और समाचार</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<section class="py-5">
+    <div class="container">
+        <!-- Search and Filter Section -->
+        <!--div class="row mb-4">
+            <div class="col-lg-8">
+                <form method="GET" class="d-flex">
+                    <input type="text" name="search" class="form-control me-2" 
+                           placeholder="समाचार खोजें..." value="{{ search }}">
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-search"></i>
+                    </button>
+                </form>
+            </div>
+            <div class="col-lg-4">
+                <form method="GET" class="row g-2 align-items-center mb-3">
+                    <div class="col-md-4">
+                        <select name="category" class="form-select" onchange="this.form.submit()">
+                            <option value="">सभी श्रेणी</option>
+                            {% for category in categories %}
+                                <option value="{{ category.id }}" 
+                                    {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                                    {{ category.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <select name="district" class="form-select" onchange="this.form.submit()">
+                            <option value="">सभी जिले</option>
+                            {% for district in districts %}
+                                <option value="{{ district.id }}" 
+                                    {% if district.id|stringformat:"s" == selected_district %}selected{% endif %}>
+                                    {{ district.name }}
+                                </option>
+                            {% endfor %}
+                        </select>
+                    </div-->
+                    {% comment %} <div class="col-md-4">
+                        <input type="text" name="q" class="form-control" placeholder="खोजें..." value="{{ request.GET.q }}">
+                    </div> {% endcomment %}
+                    <!--div class="col-12 mt-2">
+                        <button type="submit" class="btn btn-primary w-100">फिल्टर लागू करें</button>
+                    </div>
+                </form>
+            </div>
+        </div-->
+<!-- Hero Section -->
+<div class="hero-section text-white py-5">
+    <div class="container text-center">
+        <h1 class="display-5 fw-bold">समाचार</h1>
+        <p class="lead">प्रांतीय युवा प्रकोष्ठ बिहार की नवीनतम गतिविधियां और समाचार</p>
+    </div>
+</div>
+
+<!-- Filters and Search -->
+<section class="py-4">
+    <div class="container text-center">
+        <form method="GET" class="d-flex justify-content-center align-items-center flex-wrap gap-3">
+            
+            <!-- Search Bar -->
+            <div class="search-group d-flex align-items-center">
+                <input type="text" name="search" class="search-input" placeholder="समाचार खोजें..." value="{{ search }}">
+                <button type="submit" class="search-btn">
+                    <i class="fas fa-search"></i>
+                </button>
+            </div>
+
+            <!-- Category -->
+            <select name="category" class="filter-pill" onchange="this.form.submit()">
+                <option value="">सभी श्रेणी</option>
+                {% for category in categories %}
+                    <option value="{{ category.id }}" {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                        {{ category.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- District -->
+            <select name="district" class="filter-pill" onchange="this.form.submit()">
+                <option value="">सभी जिले</option>
+                {% for district in districts %}
+                    <option value="{{ district.id }}" {% if district.id|stringformat:"s" == selected_district %}selected{% endif %}>
+                        {{ district.name }}
+                    </option>
+                {% endfor %}
+            </select>
+
+            <!-- Filter Button -->
+            <button type="submit" class="filter-apply-btn">
+                फ़िल्टर लागू करें
+            </button>
+        </form>
+    </div>
+</section>
+
+
+        <!-- News Grid -->
+        <div class="row">
+            {% for article in news %}
+            <div class="col-lg-6 mb-4">
+                <article class="card h-100 shadow-sm news-card">
+                    {% if article.images.first %}
+                        <img src="{{ article.images.first.image.url }}" 
+                             class="card-img-top news-image" alt="{{ article.title }}">
+                    {% endif %}
+                    
+                    <div class="card-body d-flex flex-column">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary">{{ article.category.name }}</span>
+                            <span class="badge bg-info">{{ article.district.name }}</span>
+                        </div>
+                        
+                        {% if article.is_featured %}
+                            <div class="mb-2">
+                                <span class="badge bg-warning text-dark">
+                                    <i class="fas fa-star me-1"></i>मुख्य समाचार
+                                </span>
+                            </div>
+                        {% endif %}
+                        
+                        <h5 class="card-title">
+                            <a href="{% url 'news:detail' article.pk %}" class="text-decoration-none">
+                                {{ article.title }}
+                            </a>
+                        </h5>
+                        
+                        <p class="card-text flex-grow-1">{{ article.summary|truncatewords:25 }}</p>
+                        
+                        <div class="mt-auto">
+                            <div class="d-flex justify-content-between align-items-center mb-2">
+                                <small class="text-muted">
+                                    <i class="fas fa-calendar me-1"></i>{{ article.date_posted|date:"d M Y" }}
+                                </small>
+                                <small class="text-muted">
+                                    <i class="fas fa-eye me-1"></i>{{ article.views_count }}
+                                    <i class="fas fa-heart ms-2 me-1"></i>{{ article.likes_count }}
+                                </small>
+                            </div>
+                            
+                            <div class="d-flex justify-content-between align-items-center">
+                                <a href="{% url 'news:detail' article.pk %}" class="btn btn-outline-primary">
+                                    पूरा पढ़ें <i class="fas fa-arrow-right ms-1"></i>
+                                </a>
+                                <div>
+                                    <button class="btn btn-sm btn-outline-danger like-btn" 
+                                            data-news-id="{{ article.pk }}">
+                                        <i class="fas fa-heart me-1"></i>{{ article.likes_count }}
+                                    </button>
+                                    <button class="btn btn-sm btn-outline-secondary share-btn" 
+                                            data-title="{{ article.title }}" 
+                                            data-url="{% url 'news:detail' article.pk %}">
+                                        <i class="fas fa-share-alt"></i>
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="text-center py-5">
+                    <i class="fas fa-newspaper fa-3x text-muted mb-3"></i>
+                    <h4 class="text-muted">कोई समाचार नहीं मिला</h4>
+                    <p class="text-muted">कृपया अपने खोज मापदंड बदलें या बाद में फिर कोशिश करें।</p>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if news.has_other_pages %}
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                {% if news.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">
+                            <i class="fas fa-chevron-left"></i> पिछला
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for num in news.paginator.page_range %}
+                    {% if news.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > news.number|add:'-3' and num < news.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" href="?page={{ num }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">{{ num }}</a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if news.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" href="?page={{ news.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">
+                            अगला <i class="fas fa-chevron-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+{% endblock %}
+
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Like button functionality
+    $('.like-btn').click(function() {
+        const newsId = $(this).data('news-id');
+        const button = $(this);
+        
+        $.post('{% url "news:like" 0 %}'.replace('0', newsId), {
+            'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val()
+        })
+        .done(function(data) {
+            button.html('<i class="fas fa-heart me-1"></i>' + data.likes_count);
+            button.addClass('btn-danger').removeClass('btn-outline-danger');
+        });
+    });
+    
+    // Share button functionality
+    $('.share-btn').click(function() {
+        const title = $(this).data('title');
+        const url = window.location.origin + $(this).data('url');
+        
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                url: url
+            });
+        } else {
+            // Fallback to copy to clipboard
+            navigator.clipboard.writeText(url).then(function() {
+                alert('लिंक कॉपी किया गया!');
+            });
+        }
+    });
+});
+</script>
+{% endblock %}

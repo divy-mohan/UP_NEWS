@@ -1,0 +1,248 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}मुख्य पृष्ठ - प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश{% endblock %}
+{% block extra_css %}
+<link rel="stylesheet" href="{% static 'css/home.css' %}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"-->
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
+{% endblock %}
+
+{% block content %}
+
+<div class="hero-section position-relative overflow-hidden" data-aos="fade-down" data-aos-delay="200">
+    <div class="container-1">
+        <div class="row-1 align-items-center">
+            <div class="col-left">
+                <div class="d-flex align-items-center gap-2 mb-3">
+                    <span class="hero-badge">
+                        <i class="bi bi-lightning-charge-fill text-warning"></i>
+                    </span>
+                    <span class="hero-badge-text">युवा शक्ति</span>
+                </div>
+                <h1 class="title typewriter mb-3">
+                    <span class="gradient-text">प्रांतीय युवा प्रकोष्ठ-उत्तर प्रदेश</span>
+                </h1>
+                <p class="title-description mb-4">
+                    <i class="bi bi-people-fill text-success me-2"></i>
+                    युवाओं के सशक्तिकरण, शिक्षा और समाजसेवा के लिए समर्पित संगठन।<br>
+                    <i class="bi bi-arrow-up-right-circle-fill text-primary me-2"></i>
+                    हमारे साथ जुड़ें और बिहार के विकास में योगदान दें।
+                </p>
+                <div class="btn-group mb-2">
+                    <a href="{% url 'events:register' %}" class="btn join-btn shadow-lg">
+                        <i class="bi bi-person-plus-fill me-2"></i> अभी जुड़ें
+                    </a>
+                    <a href="{% url 'core:about' %}" class="btn learn-btn shadow-lg">
+                        <i class="bi bi-info-circle-fill me-2"></i> और जानें
+                    </a>
+                </div>
+                <div class="hero-social mt-4">
+                    <a href="#" class="hero-social-link"><i class="bi bi-facebook"></i></a>
+                    <a href="#" class="hero-social-link"><i class="bi bi-instagram"></i></a>
+                    <a href="#" class="hero-social-link"><i class="bi bi-twitter-x"></i></a>
+                    <a href="#" class="hero-social-link"><i class="bi bi-youtube"></i></a>
+                </div>
+            </div>
+            <div class="col-right d-flex justify-content-center align-items-center">
+                <div class="hero-image-wrapper position-relative">
+                    <img src="{% static 'images/youth.svg' %}" class="img-fluid hero-img" alt="Youth Illustration">
+                    <span class="hero-img-decor"></span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <span class="hero-bg-decor"></span>
+</div>
+
+<!-- Featured News Section -->
+{% if featured_news %}
+<section class="py-3" data-aos="fade-up">
+    <div class="container">
+        <div class="row-2" data-aos="fade-right">
+            <div class="col-12">
+                <h2 class="section-title">
+                    <i class="fas fa-star text-warning me-2"></i>मुख्य समाचार
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row">
+            {% for news in featured_news %}
+            <div class="col-lg-4 mb-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                <div class="card h-100 shadow-sm news-card">
+                    {% if news.images.first %}
+                        <div class="image-wrapper position-relative overflow-hidden rounded-top" style="background-color: #f0f0f0;">
+                            <img src="{{ news.images.first.image.url }}" class="card-img-top img-fluid transition-hover" alt="{{ news.title }}">
+                            <div class="image-overlay position-absolute top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center">
+                                {{ news.title }}
+                            </div>
+                        </div>
+                    {% endif %}
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-2">
+                            <span class="badge bg-primary">{{ news.category.name }}</span>
+                            <small class="text-muted">{{ news.date_posted|date:"d M Y" }}</small>
+                        </div>
+                        <h5 class="card-title">{{ news.title }}</h5>
+                        <p class="card-text">{{ news.summary|truncatewords:20|safe }}</p>
+                        <div class="d-flex justify-content-between align-items-center mt-3">
+                            <div class="stats">
+                                <span><i class="fas fa-eye me-1"></i>{{ news.views_count }}</span>
+                                <span><i class="fas fa-heart ms-2 me-1"></i>{{ news.likes_count }}</span>
+                            </div>
+                            <a href="{% url 'news:detail' news.pk %}" class="btn btn-attractive">
+                                पढ़ें <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'news:list' %}" class="btn btn-attractive news-list-btn">
+                सभी समाचार देखें <i class="bi bi-arrow-right-circle ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+
+
+
+<!-- Statistics Section -->
+
+<section class="stats-section py-5" data-aos="zoom-in-up" data-aos-delay="200">
+  <div class="container">
+    <div class="row-5 text-center">
+      <div class="col-md-3 mb-4">
+        <div class="stat-item">
+          <i class="fas fa-users stat-icon user-icon"></i>
+          <h3 class="counter">5000+</h3>
+          <p>सक्रिय सदस्य</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="stat-item">
+          <i class="fas fa-calendar-check stat-icon calendar-icon"></i>
+          <h3 class="counter">150+</h3>
+          <p>आयोजित कार्यक्रम</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="stat-item">
+          <i class="fas fa-map-marked-alt stat-icon map-icon"></i>
+          <h3 class="counter">38</h3>
+          <p>जिले कवर</p>
+        </div>
+      </div>
+      <div class="col-md-3 mb-4">
+        <div class="stat-item">
+          <i class="fas fa-hand-holding-heart stat-icon heart-icon"></i>
+          <h3 class="counter">100+</h3>
+          <p>समाजसेवा परियोजनाएं</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Upcoming Events Section -->
+{% if upcoming_events %}
+<section class="py-3" data-aos="fade-left">
+    <div class="container">
+        <div class="row-3">
+            <div class="col-12">
+                <h2 class="section-title">
+                    <i class="fas fa-calendar-alt text-success me-2"></i>आगामी कार्यक्रम
+                </h2>
+            </div>
+        </div>
+        
+        <div class="row-4">
+            {% for event in upcoming_events %}
+            <div class="col-lg-4 mb-4">
+                <div class="card h-100 shadow-sm event-card">
+                    <div class="card-body">
+                        <div class="d-flex justify-content-between align-items-center mb-3">
+                            <span class="badge bg-success">{{ event.category.name }}</span>
+                            <span class="badge bg-info">{{ event.district.name }}</span>
+                        </div>
+                        <h5 class="card-title">{{ event.title }}</h5>
+                        <p class="card-text">{{ event.description|truncatewords:15 }}</p>
+                        
+                        <div class="event-details mb-3">
+                            <p class="mb-1">
+                                <i class="fas fa-calendar me-2 text-primary"></i>
+                                <strong>दिनांक:</strong> {{ event.event_date|date:"d M Y, l" }}
+                            </p>
+                            <p class="mb-1">
+                                <i class="fas fa-clock me-2 text-primary"></i>
+                                <strong>समय:</strong> {{ event.event_date|time:"H:i" }}
+                            </p>
+                            <p class="mb-1">
+                                <i class="fas fa-map-marker-alt me-2 text-primary"></i>
+                                <strong>स्थान:</strong> {{ event.venue }}
+                            </p>
+                            {% if event.registration_fee > 0 %}
+                            <p class="mb-1">
+                                <i class="fas fa-rupee-sign me-2 text-primary"></i>
+                                <strong>शुल्क:</strong> ₹{{ event.registration_fee }}
+                            </p>
+                            {% endif %}
+                        </div>
+                        
+                        <div class="d-flex justify-content-between align-items-center">
+                            {% if event.available_spots %}
+                                <small class="text-success">
+                                    <i class="fas fa-users me-1"></i>{{ event.available_spots }} स्थान उपलब्ध
+                                </small>
+                            {% endif %}
+                            <a href="{% url 'events:detail' event.pk %}" class="btn btn-sm btn-success">
+                                विवरण देखें <i class="fas fa-arrow-right ms-1"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-4">
+            <a href="{% url 'events:list' %}" class="btn btn-success">
+                सभी गतिविधियां देखें <i class="fas fa-arrow-right ms-2"></i>
+            </a>
+        </div>
+    </div>
+</section>
+{% endif %}
+<!-- Call to Action Section -->
+    <section class="join-section py-5" data-aos="fade-up">
+        <div class="container text-center">
+            <div class="row justify-content-center text-center">
+                <div class="col-lg-8">
+                    <h2 class="join-heading mb-4">हमारे साथ जुड़ें और बदलाव का हिस्सा बनें</h2>
+                    <p class="join-subtext mb-4">
+                        प्रांतीय युवा प्रकोष्ठ बिहार के साथ जुड़कर समाज सेवा और युवा सशक्तिकरण में योगदान दें।
+                    </p>
+                    <div class="join-buttons">
+                        <a href="{% url 'events:register' %}" class="btn join-btn">
+                            <i class="fas fa-user-plus me-2"></i>सदस्यता लें
+                        </a>
+                        <a href="{% url 'contact:contact' %}" class="btn contact-btn">
+                            <i class="fas fa-envelope me-2"></i>संपर्क करें
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+

@@ -1,0 +1,53 @@
+# README: Setup Instructions for Teammates (Windows Only)
+
+When you clone the project from GitHub, follow these steps to set up the environment on **Windows**:
+
+### 1. Navigate to the parent directory:
+```cmd
+cd ..
+```
+
+### 2. Go to the GitHub folder (if not already there):
+```cmd
+cd path_to_github_folder
+```
+
+### 3. Create a virtual environment:
+```cmd
+python -m venv venv
+```
+
+### 4. Activate the virtual environment:
+```cmd
+venv\Scripts\activate
+```
+
+### 5. Move into the Django project folder:
+```cmd
+cd pranteey_yuva_django
+```
+
+### 6. Upgrade pip:
+```cmd
+python.exe -m pip install --upgrade pip
+```
+
+### 7. Install required packages:
+```cmd
+pip install -r requirements.txt
+```
+
+### 8. Run the development server:
+```cmd
+python manage.py runserver
+```
+
+---
+Now you should be able to access the Django app at:
+```
+http://127.0.0.1:8000/
+```
+
+📝 **Note:**
+- Make sure Python is added to your system PATH.
+- If you face any module error (like `ModuleNotFoundError`), check if it's listed in `requirements.txt` or install it manually using `pip install <module-name>`.

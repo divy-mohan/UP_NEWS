@@ -1,0 +1,15 @@
+Django>=5.1,<6.0
+django-ckeditor>=6.7.0
+Pillow>=10.0.0
+qrcode>=7.4.2
+reportlab>=4.0.0
+# For sending email via SMTP, you may need:
+django-environ>=0.11.2
+
+# Optional: For better static/media file handling in production
+whitenoise>=6.6.0
+
+# If you use crispy forms for better form rendering
+django-crispy-forms>=2.0
+
+# If you use any other packages, add them here

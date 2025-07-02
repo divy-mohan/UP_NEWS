@@ -1,0 +1,73 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+__pycache__
+
+# Django stuff:
+*.log
+*.pot
+*.pyc
+*.pyo
+*.db
+
+
+local_settings.py
+
+# Cache
+.cache/
+*.cache
+
+# VS Code settings
+.vscode/
+
+# Virtual environments
+env/
+venv/
+ENV/
+.venv/
+env.bak/
+venv.bak/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Pip
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Test and coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Pytest
+.pytest_cache/
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# dotenv
+.env
+.env.*
+
+# Sentry
+.sentryclirc
+
+# Local apps
+*.egg-info/
+dist/
+build/
