@@ -195,7 +195,7 @@
                             </div>
                             <div class="progress-bar">
                                 <div class="progress-fill" 
-                                     style="width: {{ event.registered_count|floatformat:0|add:0|div:event.max_participants|mul:100 }}%"></div>
+                                     style="width: {% widthratio event.registered_count event.max_participants 100 %}%"></div>
                             </div>
                         </div>
 
