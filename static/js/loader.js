@@ -48,7 +48,7 @@ class LoaderManager {
         if (document.readyState === 'loading') {
             this.showPageLoader();
             window.addEventListener('load', () => {
-                setTimeout(() => this.hidePageLoader(), 500);
+                setTimeout(() => this.hidePageLoader(), 100);
             });
         }
     }
@@ -77,7 +77,7 @@ class LoaderManager {
             
             setTimeout(() => {
                 loader.style.display = 'none';
-            }, 500);
+            }, 200);
         }
     }
 
@@ -88,15 +88,15 @@ class LoaderManager {
 
         let progress = 0;
         const interval = setInterval(() => {
-            progress += Math.random() * 15;
-            if (progress > 90) progress = 90;
+            progress += Math.random() * 25;
+            if (progress > 95) progress = 95;
             
             progressBar.style.width = progress + '%';
             
-            if (progress >= 90) {
+            if (progress >= 95) {
                 clearInterval(interval);
             }
-        }, 100);
+        }, 50);
     }
 
     // Setup form loaders
@@ -410,9 +410,8 @@ class LoaderManager {
                 !link.getAttribute('href').startsWith('mailto:') &&
                 !link.getAttribute('href').startsWith('tel:')) {
                 
-                setTimeout(() => {
-                    this.showPageLoader('पृष्ठ लोड हो रहा है...');
-                }, 100);
+                // Skip loader for internal navigation
+                // this.showPageLoader('पृष्ठ लोड हो रहा है...');
             }
         });
 
