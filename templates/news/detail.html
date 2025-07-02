@@ -9,183 +9,219 @@
 
 {% block content %}
 
-<!-- Breadcrumb -->
-<nav class="breadcrumb-nav py-3" data-aos="fade-down">
-    <div class="container">
-        <ol class="breadcrumb modern-breadcrumb">
-            <li class="breadcrumb-item">
-                <a href="{% url 'core:home' %}">
-                    <i class="bi bi-house-door-fill"></i>
-                    मुख्य पृष्ठ
-                </a>
-            </li>
-            <li class="breadcrumb-item">
-                <a href="{% url 'news:list' %}">समाचार</a>
-            </li>
-            <li class="breadcrumb-item active">{{ news.title|truncatewords:5 }}</li>
-        </ol>
-    </div>
-</nav>
+<!-- Reading Progress Bar -->
+<div class="reading-progress-bar">
+    <div class="progress-fill" id="reading-progress"></div>
+</div>
 
-<!-- News Detail Section -->
-<section class="news-detail-section py-5">
+<!-- Hero Section with Background -->
+<section class="news-hero-section" style="background: linear-gradient(135deg, rgba(253, 133, 53, 0.9), rgba(255, 179, 0, 0.8)), url('{% if news.images.first %}{{ news.images.first.image.url }}{% else %}{% static 'images/youth.svg' %}{% endif %}') center/cover;" data-aos="fade-in">
     <div class="container">
         <div class="row">
-            <div class="col-lg-8 mx-auto">
-                <!-- Main Article -->
-                <article class="news-article modern-card" data-aos="fade-up">
-                    <!-- Article Header -->
-                    <header class="article-header">
-                        <!-- Meta Information -->
-                        <div class="article-meta">
-                            <div class="meta-badges">
-                                <span class="badge article-category">{{ news.category.name }}</span>
-                                <span class="badge article-district">
-                                    <i class="bi bi-geo-alt-fill"></i>
-                                    {{ news.district.name }}
-                                </span>
-                                {% if news.is_featured %}
-                                    <span class="badge article-featured">
-                                        <i class="bi bi-star-fill"></i>
-                                        मुख्य समाचार
-                                    </span>
-                                {% endif %}
-                            </div>
-                            
-                            <div class="meta-info">
-                                <span class="meta-item">
-                                    <i class="bi bi-calendar3"></i>
-                                    {{ news.date_posted|date:"d M Y" }}
-                                </span>
-                                <span class="meta-item">
-                                    <i class="bi bi-clock"></i>
-                                    {{ news.date_posted|time:"H:i" }}
-                                </span>
-                                <span class="meta-item">
-                                    <i class="bi bi-person-fill"></i>
-                                    {{ news.author }}
-                                </span>
-                            </div>
-                        </div>
-                        
-                        <!-- Title -->
-                        <h1 class="article-title">{{ news.title }}</h1>
-                        
-                        <!-- Stats -->
-                        <div class="article-stats">
+            <div class="col-lg-8 mx-auto text-center">
+                <!-- Breadcrumb -->
+                <nav class="breadcrumb-nav mb-4" data-aos="fade-down">
+                    <ol class="breadcrumb hero-breadcrumb">
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'core:home' %}">
+                                <i class="bi bi-house-door-fill"></i>
+                                मुख्य पृष्ठ
+                            </a>
+                        </li>
+                        <li class="breadcrumb-item">
+                            <a href="{% url 'news:list' %}">समाचार</a>
+                        </li>
+                        <li class="breadcrumb-item active">{{ news.title|truncatewords:5 }}</li>
+                    </ol>
+                </nav>
+
+                <!-- Hero Content -->
+                <div class="hero-content" data-aos="fade-up" data-aos-delay="200">
+                    <div class="hero-badges mb-3">
+                        <span class="badge hero-category">{{ news.category.name }}</span>
+                        <span class="badge hero-district">
+                            <i class="bi bi-geo-alt-fill"></i>
+                            {{ news.district.name }}
+                        </span>
+                        {% if news.is_featured %}
+                            <span class="badge hero-featured">
+                                <i class="bi bi-star-fill"></i>
+                                मुख्य समाचार
+                            </span>
+                        {% endif %}
+                    </div>
+                    
+                    <h1 class="hero-title">{{ news.title }}</h1>
+                    
+                    <div class="hero-meta">
+                        <span class="meta-item">
+                            <i class="bi bi-calendar3"></i>
+                            {{ news.date_posted|date:"d M Y" }}
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-clock"></i>
+                            {{ news.date_posted|time:"H:i" }}
+                        </span>
+                        <span class="meta-item">
+                            <i class="bi bi-person-fill"></i>
+                            {{ news.author }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Main Content -->
+<section class="news-content-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Article Content -->
+            <div class="col-lg-8">
+                <article class="news-article" data-aos="fade-up">
+                    <!-- Article Stats -->
+                    <div class="article-stats-top mb-4">
+                        <div class="stats-row">
                             <div class="stat-item">
                                 <i class="bi bi-eye-fill"></i>
-                                <span>{{ news.views_count }} बार देखा गया</span>
+                                <span>{{ news.views_count|default:0 }} बार देखा गया</span>
                             </div>
                             <div class="stat-item">
                                 <i class="bi bi-heart-fill"></i>
-                                <span id="likes-count">{{ news.likes_count }} पसंद</span>
+                                <span id="likes-count">{{ news.likes_count|default:0 }} पसंद</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-chat-dots-fill"></i>
+                                <span>{{ comments.count }} टिप्पणियां</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-share-fill"></i>
+                                <span>{{ news.share_count|default:0 }} शेयर</span>
                             </div>
                         </div>
-                    </header>
-
-                    <!-- Image Gallery -->
-                    {% if news.images.all %}
-                        <div class="article-media" data-aos="zoom-in" data-aos-delay="200">
-                            {% if news.images.count == 1 %}
-                                <div class="single-image">
-                                    <img src="{{ news.images.first.image.url }}" 
-                                         class="img-fluid article-image" 
-                                         alt="{{ news.title }}"
-                                         onclick="openLightbox('{{ news.images.first.image.url }}')">
-                                    {% if news.images.first.caption %}
-                                        <p class="image-caption">{{ news.images.first.caption }}</p>
-                                    {% endif %}
-                                </div>
-                            {% else %}
-                                <div id="newsImagesCarousel" class="carousel slide article-carousel" data-bs-ride="carousel">
-                                    <div class="carousel-indicators">
-                                        {% for image in news.images.all %}
-                                            <button type="button" data-bs-target="#newsImagesCarousel" 
-                                                    data-bs-slide-to="{{ forloop.counter0 }}" 
-                                                    {% if forloop.first %}class="active"{% endif %}></button>
-                                        {% endfor %}
-                                    </div>
-                                    
-                                    <div class="carousel-inner">
-                                        {% for image in news.images.all %}
-                                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
-                                                <img src="{{ image.image.url }}" 
-                                                     class="d-block w-100 article-image" 
-                                                     alt="{{ news.title }}"
-                                                     onclick="openLightbox('{{ image.image.url }}')">
-                                                {% if image.caption %}
-                                                    <div class="carousel-caption">
-                                                        <p>{{ image.caption }}</p>
-                                                    </div>
-                                                {% endif %}
-                                            </div>
-                                        {% endfor %}
-                                    </div>
-                                    
-                                    <button class="carousel-control-prev" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="prev">
-                                        <span class="carousel-control-prev-icon"></span>
-                                    </button>
-                                    <button class="carousel-control-next" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="next">
-                                        <span class="carousel-control-next-icon"></span>
-                                    </button>
-                                </div>
-                            {% endif %}
-                        </div>
-                    {% endif %}
-
-                    <!-- Article Content -->
-                    <div class="article-content" data-aos="fade-up" data-aos-delay="300">
-                        {{ news.content|safe }}
                     </div>
 
-                    <!-- Article Actions -->
-                    <div class="article-actions" data-aos="fade-up" data-aos-delay="400">
-                        <div class="action-buttons">
-                            <button class="btn btn-like-article" id="like-btn" data-news-id="{{ news.pk }}">
-                                <i class="bi bi-heart"></i>
-                                <span>पसंद करें</span>
-                            </button>
-                            
-                            <button class="btn btn-share-article" onclick="shareArticle()">
-                                <i class="bi bi-share"></i>
-                                <span>साझा करें</span>
-                            </button>
-                            
-                            <button class="btn btn-bookmark-article">
-                                <i class="bi bi-bookmark"></i>
-                                <span>सेव करें</span>
-                            </button>
+                    <!-- Article Content -->
+                    <div class="article-content-wrapper">
+                        <!-- Image Gallery -->
+                        {% if news.images.all %}
+                            <div class="article-media mb-4" data-aos="zoom-in">
+                                {% if news.images.count == 1 %}
+                                    <div class="single-image">
+                                        <img src="{{ news.images.first.image.url }}" 
+                                             class="img-fluid article-image" 
+                                             alt="{{ news.title }}"
+                                             onclick="openLightbox('{{ news.images.first.image.url }}')">
+                                        {% if news.images.first.caption %}
+                                            <p class="image-caption">{{ news.images.first.caption }}</p>
+                                        {% endif %}
+                                    </div>
+                                {% else %}
+                                    <div id="newsImagesCarousel" class="carousel slide article-carousel" data-bs-ride="carousel">
+                                        <div class="carousel-indicators">
+                                            {% for image in news.images.all %}
+                                                <button type="button" data-bs-target="#newsImagesCarousel" 
+                                                        data-bs-slide-to="{{ forloop.counter0 }}" 
+                                                        {% if forloop.first %}class="active"{% endif %}></button>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        <div class="carousel-inner">
+                                            {% for image in news.images.all %}
+                                                <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                    <img src="{{ image.image.url }}" 
+                                                         class="d-block w-100 article-image" 
+                                                         alt="{{ news.title }}"
+                                                         onclick="openLightbox('{{ image.image.url }}')">
+                                                    {% if image.caption %}
+                                                        <div class="carousel-caption">
+                                                            <p>{{ image.caption }}</p>
+                                                        </div>
+                                                    {% endif %}
+                                                </div>
+                                            {% endfor %}
+                                        </div>
+                                        
+                                        <button class="carousel-control-prev" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="prev">
+                                            <span class="carousel-control-prev-icon"></span>
+                                        </button>
+                                        <button class="carousel-control-next" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="next">
+                                            <span class="carousel-control-next-icon"></span>
+                                        </button>
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+
+                        <!-- Article Content -->
+                        <div class="article-content" data-aos="fade-up">
+                            {{ news.content|safe }}
                         </div>
-                        
-                        <div class="social-share">
-                            <span class="share-label">साझा करें:</span>
-                            <a href="#" class="social-btn facebook" onclick="shareOnFacebook()">
-                                <i class="fab fa-facebook-f"></i>
-                            </a>
-                            <a href="#" class="social-btn twitter" onclick="shareOnTwitter()">
-                                <i class="fab fa-twitter"></i>
-                            </a>
-                            <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()">
-                                <i class="fab fa-whatsapp"></i>
-                            </a>
-                            <a href="#" class="social-btn telegram" onclick="shareOnTelegram()">
-                                <i class="fab fa-telegram"></i>
-                            </a>
+
+                        <!-- Tags Section -->
+                        {% if news.tags.all %}
+                            <div class="article-tags mt-4" data-aos="fade-up">
+                                <h6 class="tags-title">
+                                    <i class="bi bi-tags-fill"></i>
+                                    संबंधित टैग:
+                                </h6>
+                                <div class="tags-list">
+                                    {% for tag in news.tags.all %}
+                                        <span class="tag-item">{{ tag.name }}</span>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        {% endif %}
+
+                        <!-- Article Actions -->
+                        <div class="article-actions mt-4" data-aos="fade-up">
+                            <div class="action-buttons">
+                                <button class="btn btn-like-article" id="like-btn" data-news-id="{{ news.pk }}">
+                                    <i class="bi bi-heart"></i>
+                                    <span>पसंद करें</span>
+                                </button>
+                                
+                                <button class="btn btn-share-article" onclick="shareArticle()">
+                                    <i class="bi bi-share"></i>
+                                    <span>साझा करें</span>
+                                </button>
+                                
+                                <button class="btn btn-bookmark-article">
+                                    <i class="bi bi-bookmark"></i>
+                                    <span>सेव करें</span>
+                                </button>
+                                
+                                <button class="btn btn-print-article" onclick="printArticle()">
+                                    <i class="bi bi-printer"></i>
+                                    <span>प्रिंट करें</span>
+                                </button>
+                            </div>
+                            
+                            <div class="social-share">
+                                <span class="share-label">साझा करें:</span>
+                                <a href="#" class="social-btn facebook" onclick="shareOnFacebook()">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-btn twitter" onclick="shareOnTwitter()">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                                    <i class="fab fa-whatsapp"></i>
+                                </a>
+                                <a href="#" class="social-btn telegram" onclick="shareOnTelegram()">
+                                    <i class="fab fa-telegram"></i>
+                                </a>
+                                <a href="#" class="social-btn linkedin" onclick="shareOnLinkedIn()">
+                                    <i class="fab fa-linkedin"></i>
+                                </a>
+                            </div>
                         </div>
                     </div>
                 </article>
 
-                <!-- Navigation -->
-                <nav class="article-navigation mt-4" data-aos="fade-up" data-aos-delay="500">
-                    <a href="{% url 'news:list' %}" class="btn btn-back">
-                        <i class="bi bi-arrow-left"></i>
-                        सभी समाचार देखें
-                    </a>
-                </nav>
-
                 <!-- Comments Section -->
-                <section class="comments-section mt-5" data-aos="fade-up" data-aos-delay="600">
+                <section class="comments-section mt-5" data-aos="fade-up">
                     <div class="section-header">
                         <h3 class="section-title">
                             <i class="bi bi-chat-dots-fill"></i>
@@ -215,26 +251,32 @@
                             </div>
                         {% empty %}
                             <div class="empty-comments">
-                                <i class="bi bi-chat-dots"></i>
+                                <div class="empty-icon">
+                                    <i class="bi bi-chat-dots"></i>
+                                </div>
+                                <h5>कोई टिप्पणी नहीं</h5>
                                 <p>अभी तक कोई टिप्पणी नहीं। पहली टिप्पणी करें!</p>
                             </div>
                         {% endfor %}
                     </div>
 
                     <!-- Add Comment Form -->
-                    <div class="add-comment-section mt-4" data-aos="fade-up" data-aos-delay="700">
+                    <div class="add-comment-section mt-4" data-aos="fade-up">
                         <h4 class="form-title">अपनी टिप्पणी जोड़ें</h4>
                         <form method="post" action="{% url 'news:add_comment' news.pk %}" class="comment-form">
                             {% csrf_token %}
                             <div class="row g-3">
                                 <div class="col-md-6">
-                                    {{ comment_form.author_name }}
+                                    <label for="id_author_name" class="form-label">नाम *</label>
+                                    <input type="text" class="form-control" id="id_author_name" name="author_name" placeholder="आपका नाम" required>
                                 </div>
                                 <div class="col-md-6">
-                                    {{ comment_form.author_email }}
+                                    <label for="id_author_email" class="form-label">ईमेल *</label>
+                                    <input type="email" class="form-control" id="id_author_email" name="author_email" placeholder="आपका ईमेल" required>
                                 </div>
                                 <div class="col-12">
-                                    {{ comment_form.content }}
+                                    <label for="id_content" class="form-label">टिप्पणी *</label>
+                                    <textarea class="form-control" id="id_content" name="content" rows="4" placeholder="अपनी टिप्पणी यहाँ लिखें..." required></textarea>
                                 </div>
                                 <div class="col-12">
                                     <button type="submit" class="btn btn-submit-comment">
@@ -247,6 +289,157 @@
                     </div>
                 </section>
             </div>
+
+            <!-- Sidebar -->
+            <div class="col-lg-4">
+                <div class="sidebar-content">
+                    <!-- Quick Actions -->
+                    <div class="sidebar-widget quick-actions" data-aos="slide-left">
+                        <h5 class="widget-title">
+                            <i class="bi bi-lightning-charge-fill"></i>
+                            त्वरित क्रियाएं
+                        </h5>
+                        <div class="widget-content">
+                            <a href="{% url 'news:list' %}" class="quick-action-btn">
+                                <i class="bi bi-newspaper"></i>
+                                <span>सभी समाचार</span>
+                            </a>
+                            <a href="{% url 'events:list' %}" class="quick-action-btn">
+                                <i class="bi bi-calendar-event"></i>
+                                <span>आगामी कार्यक्रम</span>
+                            </a>
+                            <a href="{% url 'contact:contact' %}" class="quick-action-btn">
+                                <i class="bi bi-envelope-fill"></i>
+                                <span>संपर्क करें</span>
+                            </a>
+                            <a href="/admin" class="quick-action-btn">
+                                <i class="bi bi-gear-fill"></i>
+                                <span>एडमिन पैनल</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- Related News -->
+                    <div class="sidebar-widget related-news" data-aos="slide-left" data-aos-delay="200">
+                        <h5 class="widget-title">
+                            <i class="bi bi-link-45deg"></i>
+                            संबंधित समाचार
+                        </h5>
+                        <div class="widget-content">
+                            {% for related_news in related_news_list %}
+                                <div class="related-item">
+                                    <div class="related-image">
+                                        {% if related_news.images.first %}
+                                            <img src="{{ related_news.images.first.image.url }}" alt="{{ related_news.title }}">
+                                        {% else %}
+                                            <div class="placeholder-image">
+                                                <i class="bi bi-image"></i>
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                    <div class="related-content">
+                                        <h6 class="related-title">
+                                            <a href="{% url 'news:detail' related_news.pk %}">{{ related_news.title|truncatewords:8 }}</a>
+                                        </h6>
+                                        <p class="related-meta">
+                                            <i class="bi bi-calendar3"></i>
+                                            {{ related_news.date_posted|date:"d M Y" }}
+                                        </p>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="no-related">
+                                    <i class="bi bi-info-circle"></i>
+                                    <p>कोई संबंधित समाचार नहीं मिला</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Popular News -->
+                    <div class="sidebar-widget popular-news" data-aos="slide-left" data-aos-delay="400">
+                        <h5 class="widget-title">
+                            <i class="bi bi-fire"></i>
+                            लोकप्रिय समाचार
+                        </h5>
+                        <div class="widget-content">
+                            {% for popular_news in popular_news_list %}
+                                <div class="popular-item">
+                                    <div class="popular-rank">{{ forloop.counter }}</div>
+                                    <div class="popular-content">
+                                        <h6 class="popular-title">
+                                            <a href="{% url 'news:detail' popular_news.pk %}">{{ popular_news.title|truncatewords:6 }}</a>
+                                        </h6>
+                                        <p class="popular-stats">
+                                            <i class="bi bi-eye-fill"></i>
+                                            {{ popular_news.views_count|default:0 }} व्यू
+                                        </p>
+                                    </div>
+                                </div>
+                            {% empty %}
+                                <div class="no-popular">
+                                    <i class="bi bi-info-circle"></i>
+                                    <p>कोई लोकप्रिय समाचार नहीं मिला</p>
+                                </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Category Navigation -->
+                    <div class="sidebar-widget category-nav" data-aos="slide-left" data-aos-delay="600">
+                        <h5 class="widget-title">
+                            <i class="bi bi-grid-3x3-gap-fill"></i>
+                            श्रेणियां
+                        </h5>
+                        <div class="widget-content">
+                            <div class="category-list">
+                                {% for category in categories %}
+                                    <a href="{% url 'news:list' %}?category={{ category.slug }}" class="category-item">
+                                        <span class="category-name">{{ category.name }}</span>
+                                        <span class="category-count">{{ category.news_count|default:0 }}</span>
+                                    </a>
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Widget -->
+                    <div class="sidebar-widget contact-widget" data-aos="slide-left" data-aos-delay="800">
+                        <h5 class="widget-title">
+                            <i class="bi bi-telephone-fill"></i>
+                            संपर्क जानकारी
+                        </h5>
+                        <div class="widget-content">
+                            <div class="contact-item">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                <span>सुल्तानपुर - उत्तर प्रदेश</span>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-telephone-fill"></i>
+                                <a href="tel:+919415156122">+91 9415156122</a>
+                            </div>
+                            <div class="contact-item">
+                                <i class="bi bi-envelope-fill"></i>
+                                <a href="mailto:info@pranteeyyuva.org">info@pranteeyyuva.org</a>
+                            </div>
+                            <div class="social-links">
+                                <a href="#" class="social-link facebook">
+                                    <i class="fab fa-facebook-f"></i>
+                                </a>
+                                <a href="#" class="social-link twitter">
+                                    <i class="fab fa-twitter"></i>
+                                </a>
+                                <a href="#" class="social-link instagram">
+                                    <i class="fab fa-instagram"></i>
+                                </a>
+                                <a href="#" class="social-link youtube">
+                                    <i class="fab fa-youtube"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </section>
@@ -256,6 +449,7 @@
     <div class="lightbox-content">
         <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
         <img class="lightbox-image" id="lightbox-img">
+        <div class="lightbox-caption" id="lightbox-caption"></div>
     </div>
 </div>
 
@@ -263,66 +457,78 @@
 
 {% block extra_js %}
 <script>
-$(document).ready(function() {
-    // Like button functionality
-    $('#like-btn').click(function(e) {
-        e.preventDefault();
-        const newsId = $(this).data('news-id');
-        const button = $(this);
-        const icon = button.find('i');
-        const span = button.find('span');
-        
-        // Add loading state
-        button.addClass('loading');
-        icon.removeClass('bi-heart').addClass('bi-heart-fill');
-        
-        $.post('{% url "news:like" news.pk %}', {
-            'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val()
-        })
-        .done(function(data) {
-            $('#likes-count').text(data.likes_count + ' पसंद');
-            button.addClass('liked');
-            span.text('पसंद किया');
-            
-            // Add heart animation
-            button.addClass('animate-heart');
-            setTimeout(() => {
-                button.removeClass('animate-heart');
-            }, 600);
-        })
-        .fail(function() {
-            icon.removeClass('bi-heart-fill').addClass('bi-heart');
-        })
-        .always(function() {
-            button.removeClass('loading');
-        });
-    });
-
+document.addEventListener('DOMContentLoaded', function() {
     // Reading progress bar
-    const progressBar = $('#reading-progress');
-    const article = $('.article-content');
+    const progressBar = document.getElementById('reading-progress');
+    const article = document.querySelector('.article-content');
     
-    if (article.length && progressBar.length) {
-        $(window).scroll(function() {
-            const scrollTop = $(window).scrollTop();
-            const articleTop = article.offset().top;
-            const articleHeight = article.outerHeight();
-            const windowHeight = $(window).height();
+    if (article && progressBar) {
+        window.addEventListener('scroll', function() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const articleTop = article.offsetTop;
+            const articleHeight = article.offsetHeight;
+            const windowHeight = window.innerHeight;
             
             if (scrollTop >= articleTop - windowHeight) {
                 const progress = Math.min(
                     100,
                     ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
                 );
-                progressBar.css('width', progress + '%');
+                progressBar.style.width = progress + '%';
             }
+        });
+    }
+
+    // Like button functionality
+    const likeBtn = document.getElementById('like-btn');
+    if (likeBtn) {
+        likeBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            const newsId = this.dataset.newsId;
+            const button = this;
+            const icon = button.querySelector('i');
+            const span = button.querySelector('span');
+            
+            // Add loading state
+            button.classList.add('loading');
+            icon.classList.remove('bi-heart');
+            icon.classList.add('bi-heart-fill');
+            
+            fetch(`/news/${newsId}/like/`, {
+                method: 'POST',
+                headers: {
+                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    'Content-Type': 'application/json',
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById('likes-count').textContent = data.likes_count + ' पसंद';
+                button.classList.add('liked');
+                span.textContent = 'पसंद किया';
+                
+                // Add heart animation
+                button.classList.add('animate-heart');
+                setTimeout(() => {
+                    button.classList.remove('animate-heart');
+                }, 600);
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                icon.classList.remove('bi-heart-fill');
+                icon.classList.add('bi-heart');
+            })
+            .finally(() => {
+                button.classList.remove('loading');
+            });
         });
     }
 });
 
 // Lightbox functions
-function openLightbox(imageSrc) {
+function openLightbox(imageSrc, caption = '') {
     document.getElementById('lightbox-img').src = imageSrc;
+    document.getElementById('lightbox-caption').textContent = caption;
     document.getElementById('lightbox').style.display = 'flex';
     document.body.style.overflow = 'hidden';
 }
@@ -340,66 +546,56 @@ function shareArticle() {
     if (navigator.share) {
         navigator.share({
             title: title,
-            url: url
+            url: url,
+            text: "प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश से यह समाचार पढ़ें"
         });
     } else {
-        copyToClipboard(url);
-        showToast('लिंक कॉपी हो गया!', 'success');
+        navigator.clipboard.writeText(url);
+        alert('लिंक कॉपी हो गया!');
     }
 }
 
 function shareOnFacebook() {
     const url = encodeURIComponent(window.location.href);
-    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank', 'width=600,height=400');
 }
 
 function shareOnTwitter() {
-    const title = encodeURIComponent("{{ news.title|escapejs }}");
     const url = encodeURIComponent(window.location.href);
-    window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank');
+    const text = encodeURIComponent("{{ news.title|escapejs }}");
+    window.open(`https://twitter.com/intent/tweet?url=${url}&text=${text}`, '_blank', 'width=600,height=400');
 }
 
 function shareOnWhatsApp() {
-    const text = encodeURIComponent("{{ news.title|escapejs }} - " + window.location.href);
+    const url = encodeURIComponent(window.location.href);
+    const text = encodeURIComponent("{{ news.title|escapejs }} - " + url);
     window.open(`https://wa.me/?text=${text}`, '_blank');
 }
 
 function shareOnTelegram() {
-    const title = encodeURIComponent("{{ news.title|escapejs }}");
     const url = encodeURIComponent(window.location.href);
-    window.open(`https://t.me/share/url?url=${url}&text=${title}`, '_blank');
+    const text = encodeURIComponent("{{ news.title|escapejs }}");
+    window.open(`https://t.me/share/url?url=${url}&text=${text}`, '_blank');
 }
 
-function copyToClipboard(text) {
-    if (navigator.clipboard) {
-        navigator.clipboard.writeText(text);
-    } else {
-        const textArea = document.createElement('textarea');
-        textArea.value = text;
-        document.body.appendChild(textArea);
-        textArea.select();
-        document.execCommand('copy');
-        document.body.removeChild(textArea);
+function shareOnLinkedIn() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.linkedin.com/sharing/share-offsite/?url=${url}`, '_blank', 'width=600,height=400');
+}
+
+function printArticle() {
+    window.print();
+}
+
+// Keyboard shortcuts
+document.addEventListener('keydown', function(e) {
+    if (e.key === 'Escape') {
+        closeLightbox();
     }
-}
-
-function showToast(message, type = 'info') {
-    const toast = $(`
-        <div class="toast-notification toast-${type}">
-            <div class="toast-content">
-                <i class="bi bi-check-circle-fill"></i>
-                <span>${message}</span>
-            </div>
-        </div>
-    `);
-    
-    $('body').append(toast);
-    toast.addClass('show');
-    
-    setTimeout(() => {
-        toast.removeClass('show');
-        setTimeout(() => toast.remove(), 300);
-    }, 3000);
-}
+    if (e.ctrlKey && e.key === 'p') {
+        e.preventDefault();
+        printArticle();
+    }
+});
 </script>
 {% endblock %}

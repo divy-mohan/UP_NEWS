@@ -64,10 +64,29 @@ def news_detail(request, pk):
     # Comment form
     comment_form = CommentForm()
     
+    # Related news (same category, excluding current)
+    related_news_list = News.objects.filter(
+        category=news.category,
+        is_published=True
+    ).exclude(pk=pk)[:5]
+    
+    # Popular news (most views)
+    popular_news_list = News.objects.filter(
+        is_published=True
+    ).order_by('-views_count')[:5]
+    
+    # Categories with news count
+    categories = Category.objects.filter(is_active=True)
+    for category in categories:
+        category.news_count = News.objects.filter(category=category, is_published=True).count()
+    
     context = {
         'news': news,
         'comments': comments,
         'comment_form': comment_form,
+        'related_news_list': related_news_list,
+        'popular_news_list': popular_news_list,
+        'categories': categories,
     }
     return render(request, 'news/detail.html', context)
 
