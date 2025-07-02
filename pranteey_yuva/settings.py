@@ -76,11 +76,11 @@ TEMPLATES = [
 WSGI_APPLICATION = 'pranteey_yuva.wsgi.application'
 
 # Database
+# Using DATABASE_URL for database configuration
+import dj_database_url
+
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.parse(env('DATABASE_URL'))
 }
 
 # Password validation
