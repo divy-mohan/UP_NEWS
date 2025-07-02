@@ -81,6 +81,7 @@
 .title-line {
     display: block;
     color: var(--text-dark);
+    margin-bottom: 5%;
 }
 
 .title-highlight {
