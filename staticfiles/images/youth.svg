@@ -1,0 +1,163 @@
+<svg width="500" height="400" viewBox="0 0 500 400" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="orangeGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fd8535;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffb300;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="skinGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#deb887;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#cd853f;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="clothingGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fff8e1;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ffe0b2;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flagGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9933;stop-opacity:1" />
+      <stop offset="33%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="66%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#138808;stop-opacity:1" />
+    </linearGradient>
+    <filter id="dropShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="3" dy="3" stdDeviation="3" flood-color="rgba(0,0,0,0.2)"/>
+    </filter>
+  </defs>
+  
+  <!-- Background Elements -->
+  <circle cx="100" cy="80" r="40" fill="url(#orangeGradient)" opacity="0.1"/>
+  <circle cx="400" cy="120" r="30" fill="url(#orangeGradient)" opacity="0.15"/>
+  <circle cx="80" cy="300" r="25" fill="url(#orangeGradient)" opacity="0.1"/>
+  <circle cx="420" cy="320" r="35" fill="url(#orangeGradient)" opacity="0.12"/>
+  
+  <!-- Indian Flag -->
+  <g transform="translate(50, 30)">
+    <rect x="0" y="0" width="60" height="40" fill="url(#flagGradient)" rx="2"/>
+    <circle cx="30" cy="20" r="8" fill="none" stroke="#000080" stroke-width="1"/>
+    <path d="M22,20 L38,20 M30,12 L30,28 M25,15 L35,25 M35,15 L25,25" stroke="#000080" stroke-width="0.8"/>
+    <rect x="0" y="0" width="60" height="40" fill="none" stroke="#333" stroke-width="1" rx="2"/>
+  </g>
+  
+  <!-- Main Youth Figure -->
+  <g transform="translate(200, 50)" filter="url(#dropShadow)">
+    <!-- Body -->
+    <ellipse cx="0" cy="180" rx="35" ry="60" fill="url(#clothingGradient)" stroke="#fd8535" stroke-width="2"/>
+    
+    <!-- Arms -->
+    <ellipse cx="-25" cy="140" rx="12" ry="35" fill="url(#clothingGradient)" stroke="#fd8535" stroke-width="1.5" transform="rotate(-20)"/>
+    <ellipse cx="25" cy="140" rx="12" ry="35" fill="url(#clothingGradient)" stroke="#fd8535" stroke-width="1.5" transform="rotate(20)"/>
+    
+    <!-- Head -->
+    <circle cx="0" cy="80" r="25" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1.5"/>
+    
+    <!-- Hair -->
+    <path d="M-20,65 Q-25,55 -15,50 Q0,45 15,50 Q25,55 20,65 Q15,70 0,70 Q-15,70 -20,65" fill="#2c1810" stroke="#1a0f08" stroke-width="1"/>
+    
+    <!-- Eyes -->
+    <circle cx="-8" cy="75" r="3" fill="white"/>
+    <circle cx="8" cy="75" r="3" fill="white"/>
+    <circle cx="-8" cy="75" r="1.5" fill="#2c1810"/>
+    <circle cx="8" cy="75" r="1.5" fill="#2c1810"/>
+    
+    <!-- Nose -->
+    <ellipse cx="0" cy="82" rx="1.5" ry="2" fill="#cd853f"/>
+    
+    <!-- Mouth -->
+    <path d="M-5,88 Q0,92 5,88" stroke="#8b4513" stroke-width="1.5" fill="none"/>
+    
+    <!-- Legs -->
+    <ellipse cx="-12" cy="260" rx="10" ry="40" fill="#4169e1" stroke="#191970" stroke-width="1.5"/>
+    <ellipse cx="12" cy="260" rx="10" ry="40" fill="#4169e1" stroke="#191970" stroke-width="1.5"/>
+    
+    <!-- Feet -->
+    <ellipse cx="-12" cy="310" rx="8" ry="12" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+    <ellipse cx="12" cy="310" rx="8" ry="12" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+    
+    <!-- Hands -->
+    <circle cx="-30" cy="160" r="8" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1"/>
+    <circle cx="30" cy="160" r="8" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1"/>
+    
+    <!-- Book in hand -->
+    <g transform="translate(-35, 150)">
+      <rect x="0" y="0" width="12" height="18" fill="#fff8e1" stroke="#fd8535" stroke-width="1" rx="1"/>
+      <line x1="2" y1="4" x2="10" y2="4" stroke="#fd8535" stroke-width="0.5"/>
+      <line x1="2" y1="7" x2="10" y2="7" stroke="#fd8535" stroke-width="0.5"/>
+      <line x1="2" y1="10" x2="10" y2="10" stroke="#fd8535" stroke-width="0.5"/>
+    </g>
+  </g>
+  
+  <!-- Second Youth Figure -->
+  <g transform="translate(320, 60)" filter="url(#dropShadow)">
+    <!-- Body -->
+    <ellipse cx="0" cy="170" rx="30" ry="55" fill="url(#orangeGradient)" stroke="#e76f1f" stroke-width="2"/>
+    
+    <!-- Arms -->
+    <ellipse cx="-22" cy="135" rx="10" ry="30" fill="url(#orangeGradient)" stroke="#e76f1f" stroke-width="1.5" transform="rotate(-15)"/>
+    <ellipse cx="22" cy="135" rx="10" ry="30" fill="url(#orangeGradient)" stroke="#e76f1f" stroke-width="1.5" transform="rotate(15)"/>
+    
+    <!-- Head -->
+    <circle cx="0" cy="75" r="22" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1.5"/>
+    
+    <!-- Hair -->
+    <path d="M-18,60 Q-22,50 -12,45 Q0,40 12,45 Q22,50 18,60 Q12,65 0,65 Q-12,65 -18,60" fill="#2c1810" stroke="#1a0f08" stroke-width="1"/>
+    
+    <!-- Eyes -->
+    <circle cx="-7" cy="70" r="2.5" fill="white"/>
+    <circle cx="7" cy="70" r="2.5" fill="white"/>
+    <circle cx="-7" cy="70" r="1.2" fill="#2c1810"/>
+    <circle cx="7" cy="70" r="1.2" fill="#2c1810"/>
+    
+    <!-- Nose -->
+    <ellipse cx="0" cy="77" rx="1.2" ry="1.8" fill="#cd853f"/>
+    
+    <!-- Mouth -->
+    <path d="M-4,83 Q0,87 4,83" stroke="#8b4513" stroke-width="1.3" fill="none"/>
+    
+    <!-- Legs -->
+    <ellipse cx="-10" cy="245" rx="9" ry="35" fill="#228b22" stroke="#006400" stroke-width="1.5"/>
+    <ellipse cx="10" cy="245" rx="9" ry="35" fill="#228b22" stroke="#006400" stroke-width="1.5"/>
+    
+    <!-- Feet -->
+    <ellipse cx="-10" cy="290" rx="7" ry="10" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+    <ellipse cx="10" cy="290" rx="7" ry="10" fill="#8b4513" stroke="#654321" stroke-width="1"/>
+    
+    <!-- Hands -->
+    <circle cx="-25" cy="150" r="7" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1"/>
+    <circle cx="25" cy="150" r="7" fill="url(#skinGradient)" stroke="#cd853f" stroke-width="1"/>
+    
+    <!-- Lotus in hand -->
+    <g transform="translate(30, 145)">
+      <path d="M0,0 Q-3,-8 0,-10 Q3,-8 0,0" fill="#ff69b4" stroke="#ff1493" stroke-width="0.5"/>
+      <path d="M0,0 Q-5,-5 -8,0 Q-5,5 0,0" fill="#ff69b4" stroke="#ff1493" stroke-width="0.5"/>
+      <path d="M0,0 Q5,-5 8,0 Q5,5 0,0" fill="#ff69b4" stroke="#ff1493" stroke-width="0.5"/>
+      <path d="M0,0 Q-3,8 0,10 Q3,8 0,0" fill="#ff69b4" stroke="#ff1493" stroke-width="0.5"/>
+      <circle cx="0" cy="0" r="2" fill="#ffd700" stroke="#ffb300" stroke-width="0.5"/>
+    </g>
+  </g>
+  
+  <!-- Decorative Elements -->
+  <!-- Om Symbol -->
+  <g transform="translate(420, 50)" fill="url(#orangeGradient)" opacity="0.6">
+    <path d="M0,20 Q-10,10 -5,0 Q5,-5 15,0 Q20,5 15,15 Q10,25 0,20 M10,15 Q15,20 10,25 Q5,20 10,15"/>
+    <circle cx="18" cy="8" r="3"/>
+    <path d="M0,30 Q10,25 20,30" stroke="url(#orangeGradient)" stroke-width="2" fill="none"/>
+  </g>
+  
+  <!-- Cultural Pattern -->
+  <g transform="translate(50, 250)" fill="url(#orangeGradient)" opacity="0.3">
+    <path d="M0,0 L20,10 L40,0 L60,10 L80,0" stroke="url(#orangeGradient)" stroke-width="2" fill="none"/>
+    <circle cx="10" cy="5" r="3"/>
+    <circle cx="30" cy="5" r="3"/>
+    <circle cx="50" cy="5" r="3"/>
+    <circle cx="70" cy="5" r="3"/>
+  </g>
+  
+  <!-- Rising Sun -->
+  <g transform="translate(400, 280)" fill="url(#orangeGradient)" opacity="0.4">
+    <circle cx="0" cy="0" r="25"/>
+    <path d="M0,-35 L0,-25 M24.7,-12.5 L17.7,-8.8 M24.7,12.5 L17.7,8.8 M0,35 L0,25 M-24.7,12.5 L-17.7,8.8 M-24.7,-12.5 L-17.7,-8.8" stroke="url(#orangeGradient)" stroke-width="3"/>
+  </g>
+  
+  <!-- Text Elements -->
+  <text x="250" y="360" text-anchor="middle" font-family="Arial, sans-serif" font-size="16" font-weight="bold" fill="url(#orangeGradient)">युवा शक्ति</text>
+  <text x="250" y="380" text-anchor="middle" font-family="Arial, sans-serif" font-size="12" fill="#666">Youth Power</text>
+</svg>

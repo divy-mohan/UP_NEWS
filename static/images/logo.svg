@@ -1,0 +1,113 @@
+<svg width="100" height="100" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="logoGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#fd8535;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#ffb300;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8f00;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="flagGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#ff9933;stop-opacity:1" />
+      <stop offset="33%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="66%" style="stop-color:#ffffff;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#138808;stop-opacity:1" />
+    </linearGradient>
+    <radialGradient id="centerGradient" cx="50%" cy="50%" r="50%">
+      <stop offset="0%" style="stop-color:#ffd700;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#ff8f00;stop-opacity:1" />
+    </radialGradient>
+    <filter id="logoShadow" x="-50%" y="-50%" width="200%" height="200%">
+      <feDropShadow dx="2" dy="2" stdDeviation="2" flood-color="rgba(0,0,0,0.3)"/>
+    </filter>
+  </defs>
+  
+  <!-- Outer Circle with Gradient -->
+  <circle cx="50" cy="50" r="48" fill="url(#logoGradient)" stroke="#e76f1f" stroke-width="2" filter="url(#logoShadow)"/>
+  
+  <!-- Inner White Circle -->
+  <circle cx="50" cy="50" r="40" fill="white" stroke="url(#logoGradient)" stroke-width="1"/>
+  
+  <!-- Central Lotus Design -->
+  <g transform="translate(50, 50)">
+    <!-- Lotus Petals -->
+    <g fill="url(#logoGradient)" opacity="0.8">
+      <!-- Top Petal -->
+      <path d="M0,-25 Q-8,-15 0,-5 Q8,-15 0,-25" />
+      <!-- Top Right Petal -->
+      <path d="M18,-18 Q8,-8 0,-5 Q8,-18 18,-18" />
+      <!-- Right Petal -->
+      <path d="M25,0 Q15,-8 5,0 Q15,8 25,0" />
+      <!-- Bottom Right Petal -->
+      <path d="M18,18 Q8,8 0,5 Q8,18 18,18" />
+      <!-- Bottom Petal -->
+      <path d="M0,25 Q-8,15 0,5 Q8,15 0,25" />
+      <!-- Bottom Left Petal -->
+      <path d="M-18,18 Q-8,8 0,5 Q-8,18 -18,18" />
+      <!-- Left Petal -->
+      <path d="M-25,0 Q-15,-8 -5,0 Q-15,8 -25,0" />
+      <!-- Top Left Petal -->
+      <path d="M-18,-18 Q-8,-8 0,-5 Q-8,-18 -18,-18" />
+    </g>
+    
+    <!-- Center Circle -->
+    <circle cx="0" cy="0" r="12" fill="url(#centerGradient)" stroke="#ff8f00" stroke-width="1"/>
+    
+    <!-- Om Symbol in Center -->
+    <g transform="scale(0.4)" fill="white">
+      <path d="M0,8 Q-4,4 -2,0 Q2,-2 6,0 Q8,2 6,6 Q4,10 0,8 M4,6 Q6,8 4,10 Q2,8 4,6"/>
+      <circle cx="7" cy="3" r="1.2"/>
+      <path d="M0,12 Q4,10 8,12" stroke="white" stroke-width="0.8" fill="none"/>
+    </g>
+  </g>
+  
+  <!-- Decorative Border Elements -->
+  <g stroke="url(#logoGradient)" stroke-width="1.5" fill="none" opacity="0.6">
+    <!-- Top -->
+    <path d="M30,15 Q35,10 40,15 Q45,10 50,15 Q55,10 60,15 Q65,10 70,15"/>
+    <!-- Right -->
+    <path d="M85,30 Q90,35 85,40 Q90,45 85,50 Q90,55 85,60 Q90,65 85,70"/>
+    <!-- Bottom -->
+    <path d="M70,85 Q65,90 60,85 Q55,90 50,85 Q45,90 40,85 Q35,90 30,85"/>
+    <!-- Left -->
+    <path d="M15,70 Q10,65 15,60 Q10,55 15,50 Q10,45 15,40 Q10,35 15,30"/>
+  </g>
+  
+  <!-- Small Flag Element -->
+  <g transform="translate(75, 25)">
+    <rect x="0" y="0" width="15" height="10" fill="url(#flagGradient)" rx="1"/>
+    <circle cx="7.5" cy="5" r="2" fill="none" stroke="#000080" stroke-width="0.3"/>
+    <path d="M5.5,5 L9.5,5 M7.5,3 L7.5,7" stroke="#000080" stroke-width="0.2"/>
+  </g>
+  
+  <!-- Youth Figures (Simplified) -->
+  <g transform="translate(20, 75)" fill="url(#logoGradient)" opacity="0.7">
+    <!-- Figure 1 -->
+    <circle cx="0" cy="-5" r="3"/>
+    <rect x="-2" y="-2" width="4" height="8" rx="1"/>
+    <!-- Figure 2 -->
+    <circle cx="8" cy="-5" r="3"/>
+    <rect x="6" y="-2" width="4" height="8" rx="1"/>
+    <!-- Figure 3 -->
+    <circle cx="16" cy="-5" r="3"/>
+    <rect x="14" y="-2" width="4" height="8" rx="1"/>
+  </g>
+  
+  <!-- Rays emanating from center -->
+  <g stroke="url(#logoGradient)" stroke-width="1" opacity="0.4">
+    <line x1="50" y1="10" x2="50" y2="20"/>
+    <line x1="71" y1="21" x2="64" y2="28"/>
+    <line x1="79" y1="50" x2="70" y2="50"/>
+    <line x1="71" y1="79" x2="64" y2="72"/>
+    <line x1="50" y1="90" x2="50" y2="80"/>
+    <line x1="29" y1="79" x2="36" y2="72"/>
+    <line x1="21" y1="50" x2="30" y2="50"/>
+    <line x1="29" y1="21" x2="36" y2="28"/>
+  </g>
+  
+  <!-- Cultural Pattern at Bottom -->
+  <g transform="translate(50, 90)" fill="url(#logoGradient)" opacity="0.5">
+    <circle cx="-6" cy="0" r="1"/>
+    <circle cx="-2" cy="0" r="1"/>
+    <circle cx="2" cy="0" r="1"/>
+    <circle cx="6" cy="0" r="1"/>
+  </g>
+</svg>

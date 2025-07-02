@@ -1,0 +1,344 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}समाचार - प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/list.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<section class="news-hero-section" data-aos="fade-down">
+    <div class="hero-background">
+        <div class="hero-pattern"></div>
+        <div class="hero-gradient"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">समाचार</h1>
+            <p class="hero-subtitle">प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश की नवीनतम गतिविधियां और समाचार</p>
+        </div>
+    </div>
+</section>
+
+<!-- Search and Filters Section -->
+<section class="filters-section py-4" data-aos="fade-up">
+    <div class="container">
+        <div class="filters-wrapper">
+            <form method="GET" class="filters-form">
+                <!-- Search Bar -->
+                <div class="search-wrapper">
+                    <div class="search-input-group">
+                        <input type="text" name="search" class="search-input" 
+                               placeholder="समाचार खोजें..." value="{{ search }}"
+                               autocomplete="off">
+                        <button type="submit" class="search-btn">
+                            <i class="bi bi-search"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!-- Filter Pills -->
+                <div class="filter-pills">
+                    <select name="category" class="filter-select" onchange="this.form.submit()">
+                        <option value="">सभी श्रेणी</option>
+                        {% for category in categories %}
+                            <option value="{{ category.id }}" 
+                                {% if category.id|stringformat:"s" == selected_category %}selected{% endif %}>
+                                {{ category.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <select name="district" class="filter-select" onchange="this.form.submit()">
+                        <option value="">सभी जिले</option>
+                        {% for district in districts %}
+                            <option value="{{ district.id }}" 
+                                {% if district.id|stringformat:"s" == selected_district %}selected{% endif %}>
+                                {{ district.name }}
+                            </option>
+                        {% endfor %}
+                    </select>
+
+                    <button type="submit" class="filter-apply-btn">
+                        <i class="bi bi-funnel-fill me-1"></i>फ़िल्टर लागू करें
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</section>
+
+<!-- News Grid Section -->
+<section class="news-grid-section py-5">
+    <div class="container">
+        <div class="row g-4">
+            {% for article in news %}
+            <div class="col-lg-6 col-xl-4" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                <article class="news-card modern-card">
+                    <!-- Image Section -->
+                    {% if article.images.first %}
+                        <div class="news-image-wrapper">
+                            <img src="{{ article.images.first.image.url }}" 
+                                 class="news-image" alt="{{ article.title }}"
+                                 loading="lazy">
+                            <div class="image-overlay">
+                                <div class="overlay-badges">
+                                    {% if article.is_featured %}
+                                        <span class="featured-badge">
+                                            <i class="bi bi-star-fill"></i>
+                                            मुख्य
+                                        </span>
+                                    {% endif %}
+                                </div>
+                                <div class="overlay-stats">
+                                    <span class="stat-item">
+                                        <i class="bi bi-eye-fill"></i>
+                                        {{ article.views_count }}
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="news-image-placeholder">
+                            <i class="bi bi-newspaper"></i>
+                        </div>
+                    {% endif %}
+                    
+                    <!-- Content Section -->
+                    <div class="news-content">
+                        <!-- Meta Information -->
+                        <div class="news-meta">
+                            <span class="badge news-category">{{ article.category.name }}</span>
+                            <span class="news-district">
+                                <i class="bi bi-geo-alt-fill"></i>
+                                {{ article.district.name }}
+                            </span>
+                            <span class="news-date">
+                                <i class="bi bi-calendar3"></i>
+                                {{ article.date_posted|date:"d M Y" }}
+                            </span>
+                        </div>
+                        
+                        <!-- Title -->
+                        <h3 class="news-title">
+                            <a href="{% url 'news:detail' article.pk %}">{{ article.title }}</a>
+                        </h3>
+                        
+                        <!-- Summary -->
+                        <p class="news-summary">{{ article.summary|truncatewords:25|striptags }}</p>
+                        
+                        <!-- Footer -->
+                        <div class="news-footer">
+                            <div class="news-stats">
+                                <span class="stat-item">
+                                    <i class="bi bi-heart-fill"></i>
+                                    {{ article.likes_count }}
+                                </span>
+                            </div>
+                            
+                            <div class="news-actions">
+                                <button class="btn btn-like like-btn" 
+                                        data-news-id="{{ article.pk }}"
+                                        title="पसंद करें">
+                                    <i class="bi bi-heart"></i>
+                                    <span>{{ article.likes_count }}</span>
+                                </button>
+                                
+                                <button class="btn btn-share share-btn" 
+                                        data-title="{{ article.title }}" 
+                                        data-url="{% url 'news:detail' article.pk %}"
+                                        title="साझा करें">
+                                    <i class="bi bi-share"></i>
+                                </button>
+                                
+                                <a href="{% url 'news:detail' article.pk %}" 
+                                   class="btn btn-read-more">
+                                    पूरा पढ़ें <i class="bi bi-arrow-right"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </article>
+            </div>
+            {% empty %}
+            <div class="col-12">
+                <div class="empty-state" data-aos="fade-up">
+                    <div class="empty-icon">
+                        <i class="bi bi-newspaper"></i>
+                    </div>
+                    <h3 class="empty-title">कोई समाचार नहीं मिला</h3>
+                    <p class="empty-description">
+                        कृपया अपने खोज मापदंड बदलें या बाद में फिर कोशिश करें।
+                    </p>
+                    <a href="{% url 'news:list' %}" class="btn btn-primary">
+                        सभी समाचार देखें
+                    </a>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+
+        <!-- Pagination -->
+        {% if news.has_other_pages %}
+        <nav class="pagination-wrapper mt-5" aria-label="News pagination" data-aos="fade-up">
+            <ul class="modern-pagination">
+                {% if news.has_previous %}
+                    <li class="page-item">
+                        <a class="page-link" 
+                           href="?page={{ news.previous_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">
+                            <i class="bi bi-chevron-left"></i>
+                            <span>पिछला</span>
+                        </a>
+                    </li>
+                {% endif %}
+                
+                {% for num in news.paginator.page_range %}
+                    {% if news.number == num %}
+                        <li class="page-item active">
+                            <span class="page-link">{{ num }}</span>
+                        </li>
+                    {% elif num > news.number|add:'-3' and num < news.number|add:'3' %}
+                        <li class="page-item">
+                            <a class="page-link" 
+                               href="?page={{ num }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">
+                                {{ num }}
+                            </a>
+                        </li>
+                    {% endif %}
+                {% endfor %}
+                
+                {% if news.has_next %}
+                    <li class="page-item">
+                        <a class="page-link" 
+                           href="?page={{ news.next_page_number }}{% if search %}&search={{ search }}{% endif %}{% if selected_category %}&category={{ selected_category }}{% endif %}{% if selected_district %}&district={{ selected_district }}{% endif %}">
+                            <span>अगला</span>
+                            <i class="bi bi-chevron-right"></i>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+        {% endif %}
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Like button functionality
+    $('.like-btn').click(function(e) {
+        e.preventDefault();
+        const newsId = $(this).data('news-id');
+        const button = $(this);
+        const icon = button.find('i');
+        const countSpan = button.find('span');
+        
+        // Add loading state
+        button.addClass('loading');
+        icon.removeClass('bi-heart').addClass('bi-heart-fill');
+        
+        $.post('{% url "news:like" 0 %}'.replace('0', newsId), {
+            'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val()
+        })
+        .done(function(data) {
+            countSpan.text(data.likes_count);
+            button.addClass('liked');
+            
+            // Add heart animation
+            button.addClass('animate-heart');
+            setTimeout(() => {
+                button.removeClass('animate-heart');
+            }, 600);
+        })
+        .fail(function() {
+            icon.removeClass('bi-heart-fill').addClass('bi-heart');
+        })
+        .always(function() {
+            button.removeClass('loading');
+        });
+    });
+
+    // Share button functionality
+    $('.share-btn').click(function(e) {
+        e.preventDefault();
+        const title = $(this).data('title');
+        const url = window.location.origin + $(this).data('url');
+        
+        if (navigator.share) {
+            navigator.share({
+                title: title,
+                url: url
+            });
+        } else {
+            // Fallback for browsers that don't support Web Share API
+            const shareText = `${title} - ${url}`;
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(shareText).then(() => {
+                    showToast('लिंक कॉपी हो गया!', 'success');
+                });
+            } else {
+                // Further fallback
+                const textArea = document.createElement('textarea');
+                textArea.value = shareText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('लिंक कॉपी हो गया!', 'success');
+            }
+        }
+    });
+
+    // Search input enhancement
+    const searchInput = $('.search-input');
+    const searchBtn = $('.search-btn');
+    
+    searchInput.on('input', function() {
+        if ($(this).val().length > 0) {
+            searchBtn.addClass('active');
+        } else {
+            searchBtn.removeClass('active');
+        }
+    });
+
+    // Auto-submit search after typing stops
+    let searchTimeout;
+    searchInput.on('input', function() {
+        clearTimeout(searchTimeout);
+        const form = $(this).closest('form');
+        const query = $(this).val();
+        
+        if (query.length >= 3) {
+            searchTimeout = setTimeout(() => {
+                form.submit();
+            }, 1000);
+        }
+    });
+});
+
+// Toast notification function
+function showToast(message, type = 'info') {
+    const toast = $(`
+        <div class="toast-notification toast-${type}">
+            <div class="toast-content">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>${message}</span>
+            </div>
+        </div>
+    `);
+    
+    $('body').append(toast);
+    toast.addClass('show');
+    
+    setTimeout(() => {
+        toast.removeClass('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+</script>
+{% endblock %}

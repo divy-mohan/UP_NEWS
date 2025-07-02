@@ -1,0 +1,405 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ news.title }} - समाचार{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/detail.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Breadcrumb -->
+<nav class="breadcrumb-nav py-3" data-aos="fade-down">
+    <div class="container">
+        <ol class="breadcrumb modern-breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="{% url 'core:home' %}">
+                    <i class="bi bi-house-door-fill"></i>
+                    मुख्य पृष्ठ
+                </a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="{% url 'news:list' %}">समाचार</a>
+            </li>
+            <li class="breadcrumb-item active">{{ news.title|truncatewords:5 }}</li>
+        </ol>
+    </div>
+</nav>
+
+<!-- News Detail Section -->
+<section class="news-detail-section py-5">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 mx-auto">
+                <!-- Main Article -->
+                <article class="news-article modern-card" data-aos="fade-up">
+                    <!-- Article Header -->
+                    <header class="article-header">
+                        <!-- Meta Information -->
+                        <div class="article-meta">
+                            <div class="meta-badges">
+                                <span class="badge article-category">{{ news.category.name }}</span>
+                                <span class="badge article-district">
+                                    <i class="bi bi-geo-alt-fill"></i>
+                                    {{ news.district.name }}
+                                </span>
+                                {% if news.is_featured %}
+                                    <span class="badge article-featured">
+                                        <i class="bi bi-star-fill"></i>
+                                        मुख्य समाचार
+                                    </span>
+                                {% endif %}
+                            </div>
+                            
+                            <div class="meta-info">
+                                <span class="meta-item">
+                                    <i class="bi bi-calendar3"></i>
+                                    {{ news.date_posted|date:"d M Y" }}
+                                </span>
+                                <span class="meta-item">
+                                    <i class="bi bi-clock"></i>
+                                    {{ news.date_posted|time:"H:i" }}
+                                </span>
+                                <span class="meta-item">
+                                    <i class="bi bi-person-fill"></i>
+                                    {{ news.author }}
+                                </span>
+                            </div>
+                        </div>
+                        
+                        <!-- Title -->
+                        <h1 class="article-title">{{ news.title }}</h1>
+                        
+                        <!-- Stats -->
+                        <div class="article-stats">
+                            <div class="stat-item">
+                                <i class="bi bi-eye-fill"></i>
+                                <span>{{ news.views_count }} बार देखा गया</span>
+                            </div>
+                            <div class="stat-item">
+                                <i class="bi bi-heart-fill"></i>
+                                <span id="likes-count">{{ news.likes_count }} पसंद</span>
+                            </div>
+                        </div>
+                    </header>
+
+                    <!-- Image Gallery -->
+                    {% if news.images.all %}
+                        <div class="article-media" data-aos="zoom-in" data-aos-delay="200">
+                            {% if news.images.count == 1 %}
+                                <div class="single-image">
+                                    <img src="{{ news.images.first.image.url }}" 
+                                         class="img-fluid article-image" 
+                                         alt="{{ news.title }}"
+                                         onclick="openLightbox('{{ news.images.first.image.url }}')">
+                                    {% if news.images.first.caption %}
+                                        <p class="image-caption">{{ news.images.first.caption }}</p>
+                                    {% endif %}
+                                </div>
+                            {% else %}
+                                <div id="newsImagesCarousel" class="carousel slide article-carousel" data-bs-ride="carousel">
+                                    <div class="carousel-indicators">
+                                        {% for image in news.images.all %}
+                                            <button type="button" data-bs-target="#newsImagesCarousel" 
+                                                    data-bs-slide-to="{{ forloop.counter0 }}" 
+                                                    {% if forloop.first %}class="active"{% endif %}></button>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <div class="carousel-inner">
+                                        {% for image in news.images.all %}
+                                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                <img src="{{ image.image.url }}" 
+                                                     class="d-block w-100 article-image" 
+                                                     alt="{{ news.title }}"
+                                                     onclick="openLightbox('{{ image.image.url }}')">
+                                                {% if image.caption %}
+                                                    <div class="carousel-caption">
+                                                        <p>{{ image.caption }}</p>
+                                                    </div>
+                                                {% endif %}
+                                            </div>
+                                        {% endfor %}
+                                    </div>
+                                    
+                                    <button class="carousel-control-prev" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="prev">
+                                        <span class="carousel-control-prev-icon"></span>
+                                    </button>
+                                    <button class="carousel-control-next" type="button" data-bs-target="#newsImagesCarousel" data-bs-slide="next">
+                                        <span class="carousel-control-next-icon"></span>
+                                    </button>
+                                </div>
+                            {% endif %}
+                        </div>
+                    {% endif %}
+
+                    <!-- Article Content -->
+                    <div class="article-content" data-aos="fade-up" data-aos-delay="300">
+                        {{ news.content|safe }}
+                    </div>
+
+                    <!-- Article Actions -->
+                    <div class="article-actions" data-aos="fade-up" data-aos-delay="400">
+                        <div class="action-buttons">
+                            <button class="btn btn-like-article" id="like-btn" data-news-id="{{ news.pk }}">
+                                <i class="bi bi-heart"></i>
+                                <span>पसंद करें</span>
+                            </button>
+                            
+                            <button class="btn btn-share-article" onclick="shareArticle()">
+                                <i class="bi bi-share"></i>
+                                <span>साझा करें</span>
+                            </button>
+                            
+                            <button class="btn btn-bookmark-article">
+                                <i class="bi bi-bookmark"></i>
+                                <span>सेव करें</span>
+                            </button>
+                        </div>
+                        
+                        <div class="social-share">
+                            <span class="share-label">साझा करें:</span>
+                            <a href="#" class="social-btn facebook" onclick="shareOnFacebook()">
+                                <i class="fab fa-facebook-f"></i>
+                            </a>
+                            <a href="#" class="social-btn twitter" onclick="shareOnTwitter()">
+                                <i class="fab fa-twitter"></i>
+                            </a>
+                            <a href="#" class="social-btn whatsapp" onclick="shareOnWhatsApp()">
+                                <i class="fab fa-whatsapp"></i>
+                            </a>
+                            <a href="#" class="social-btn telegram" onclick="shareOnTelegram()">
+                                <i class="fab fa-telegram"></i>
+                            </a>
+                        </div>
+                    </div>
+                </article>
+
+                <!-- Navigation -->
+                <nav class="article-navigation mt-4" data-aos="fade-up" data-aos-delay="500">
+                    <a href="{% url 'news:list' %}" class="btn btn-back">
+                        <i class="bi bi-arrow-left"></i>
+                        सभी समाचार देखें
+                    </a>
+                </nav>
+
+                <!-- Comments Section -->
+                <section class="comments-section mt-5" data-aos="fade-up" data-aos-delay="600">
+                    <div class="section-header">
+                        <h3 class="section-title">
+                            <i class="bi bi-chat-dots-fill"></i>
+                            टिप्पणियां ({{ comments.count }})
+                        </h3>
+                    </div>
+
+                    <!-- Comments List -->
+                    <div class="comments-list">
+                        {% for comment in comments %}
+                            <div class="comment-item" data-aos="fade-up" data-aos-delay="{{ forloop.counter0|add:'1' }}00">
+                                <div class="comment-avatar">
+                                    <div class="avatar-placeholder">
+                                        <i class="bi bi-person-fill"></i>
+                                    </div>
+                                </div>
+                                <div class="comment-content">
+                                    <div class="comment-header">
+                                        <h6 class="comment-author">{{ comment.author_name }}</h6>
+                                        <span class="comment-date">
+                                            <i class="bi bi-clock"></i>
+                                            {{ comment.created_at|date:"d M Y H:i" }}
+                                        </span>
+                                    </div>
+                                    <p class="comment-text">{{ comment.content }}</p>
+                                </div>
+                            </div>
+                        {% empty %}
+                            <div class="empty-comments">
+                                <i class="bi bi-chat-dots"></i>
+                                <p>अभी तक कोई टिप्पणी नहीं। पहली टिप्पणी करें!</p>
+                            </div>
+                        {% endfor %}
+                    </div>
+
+                    <!-- Add Comment Form -->
+                    <div class="add-comment-section mt-4" data-aos="fade-up" data-aos-delay="700">
+                        <h4 class="form-title">अपनी टिप्पणी जोड़ें</h4>
+                        <form method="post" action="{% url 'news:add_comment' news.pk %}" class="comment-form">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    {{ comment_form.author_name }}
+                                </div>
+                                <div class="col-md-6">
+                                    {{ comment_form.author_email }}
+                                </div>
+                                <div class="col-12">
+                                    {{ comment_form.content }}
+                                </div>
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-submit-comment">
+                                        <i class="bi bi-send-fill"></i>
+                                        टिप्पणी भेजें
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </section>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Lightbox Modal -->
+<div class="lightbox-modal" id="lightbox" onclick="closeLightbox()">
+    <div class="lightbox-content">
+        <span class="lightbox-close" onclick="closeLightbox()">&times;</span>
+        <img class="lightbox-image" id="lightbox-img">
+    </div>
+</div>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Like button functionality
+    $('#like-btn').click(function(e) {
+        e.preventDefault();
+        const newsId = $(this).data('news-id');
+        const button = $(this);
+        const icon = button.find('i');
+        const span = button.find('span');
+        
+        // Add loading state
+        button.addClass('loading');
+        icon.removeClass('bi-heart').addClass('bi-heart-fill');
+        
+        $.post('{% url "news:like" news.pk %}', {
+            'csrfmiddlewaretoken': $('[name=csrfmiddlewaretoken]').val()
+        })
+        .done(function(data) {
+            $('#likes-count').text(data.likes_count + ' पसंद');
+            button.addClass('liked');
+            span.text('पसंद किया');
+            
+            // Add heart animation
+            button.addClass('animate-heart');
+            setTimeout(() => {
+                button.removeClass('animate-heart');
+            }, 600);
+        })
+        .fail(function() {
+            icon.removeClass('bi-heart-fill').addClass('bi-heart');
+        })
+        .always(function() {
+            button.removeClass('loading');
+        });
+    });
+
+    // Reading progress bar
+    const progressBar = $('#reading-progress');
+    const article = $('.article-content');
+    
+    if (article.length && progressBar.length) {
+        $(window).scroll(function() {
+            const scrollTop = $(window).scrollTop();
+            const articleTop = article.offset().top;
+            const articleHeight = article.outerHeight();
+            const windowHeight = $(window).height();
+            
+            if (scrollTop >= articleTop - windowHeight) {
+                const progress = Math.min(
+                    100,
+                    ((scrollTop - articleTop + windowHeight) / articleHeight) * 100
+                );
+                progressBar.css('width', progress + '%');
+            }
+        });
+    }
+});
+
+// Lightbox functions
+function openLightbox(imageSrc) {
+    document.getElementById('lightbox-img').src = imageSrc;
+    document.getElementById('lightbox').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = 'auto';
+}
+
+// Share functions
+function shareArticle() {
+    const title = "{{ news.title|escapejs }}";
+    const url = window.location.href;
+    
+    if (navigator.share) {
+        navigator.share({
+            title: title,
+            url: url
+        });
+    } else {
+        copyToClipboard(url);
+        showToast('लिंक कॉपी हो गया!', 'success');
+    }
+}
+
+function shareOnFacebook() {
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
+}
+
+function shareOnTwitter() {
+    const title = encodeURIComponent("{{ news.title|escapejs }}");
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://twitter.com/intent/tweet?text=${title}&url=${url}`, '_blank');
+}
+
+function shareOnWhatsApp() {
+    const text = encodeURIComponent("{{ news.title|escapejs }} - " + window.location.href);
+    window.open(`https://wa.me/?text=${text}`, '_blank');
+}
+
+function shareOnTelegram() {
+    const title = encodeURIComponent("{{ news.title|escapejs }}");
+    const url = encodeURIComponent(window.location.href);
+    window.open(`https://t.me/share/url?url=${url}&text=${title}`, '_blank');
+}
+
+function copyToClipboard(text) {
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(text);
+    } else {
+        const textArea = document.createElement('textarea');
+        textArea.value = text;
+        document.body.appendChild(textArea);
+        textArea.select();
+        document.execCommand('copy');
+        document.body.removeChild(textArea);
+    }
+}
+
+function showToast(message, type = 'info') {
+    const toast = $(`
+        <div class="toast-notification toast-${type}">
+            <div class="toast-content">
+                <i class="bi bi-check-circle-fill"></i>
+                <span>${message}</span>
+            </div>
+        </div>
+    `);
+    
+    $('body').append(toast);
+    toast.addClass('show');
+    
+    setTimeout(() => {
+        toast.removeClass('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 3000);
+}
+</script>
+{% endblock %}

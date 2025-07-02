@@ -1,0 +1,540 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}इवेंट पंजीकरण{% if event %} - {{ event.title }}{% endif %}{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/components.css' %}">
+    <style>
+        .registration-form-section {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            min-height: 80vh;
+            padding: 2rem 0;
+        }
+        
+        .form-container {
+            background: #fff;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .form-header {
+            background: linear-gradient(135deg, #fd8535 0%, #ffb300 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .form-header h2 {
+            margin: 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+        }
+        
+        .form-body {
+            padding: 2rem;
+        }
+        
+        .form-step {
+            display: none;
+        }
+        
+        .form-step.active {
+            display: block;
+        }
+        
+        .step-indicator {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 2rem;
+        }
+        
+        .step {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #e9ecef;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 0.5rem;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+        
+        .step.active {
+            background: #fd8535;
+            color: white;
+        }
+        
+        .step.completed {
+            background: #28a745;
+            color: white;
+        }
+        
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-label {
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 0.5rem;
+            display: block;
+        }
+        
+        .form-control {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-control:focus {
+            border-color: #fd8535;
+            box-shadow: 0 0 0 0.2rem rgba(253, 133, 53, 0.25);
+        }
+        
+        .form-select {
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            padding: 0.75rem 1rem;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .form-select:focus {
+            border-color: #fd8535;
+            box-shadow: 0 0 0 0.2rem rgba(253, 133, 53, 0.25);
+        }
+        
+        .btn-next, .btn-prev, .btn-submit {
+            padding: 0.75rem 2rem;
+            border-radius: 25px;
+            font-weight: 600;
+            border: none;
+            transition: all 0.3s ease;
+        }
+        
+        .btn-next, .btn-submit {
+            background: linear-gradient(135deg, #fd8535 0%, #ffb300 100%);
+            color: white;
+        }
+        
+        .btn-next:hover, .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(253, 133, 53, 0.4);
+        }
+        
+        .btn-prev {
+            background: #6c757d;
+            color: white;
+        }
+        
+        .btn-prev:hover {
+            background: #5a6268;
+        }
+        
+        .invalid-feedback {
+            display: block;
+            color: #dc3545;
+            font-size: 0.875rem;
+            margin-top: 0.25rem;
+        }
+        
+        .form-control.is-invalid {
+            border-color: #dc3545;
+        }
+        
+        .event-info {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .event-info h5 {
+            color: #fd8535;
+            font-weight: 700;
+            margin-bottom: 1rem;
+        }
+        
+        .info-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 0.5rem;
+        }
+        
+        .info-item i {
+            color: #fd8535;
+            margin-right: 0.5rem;
+            width: 20px;
+        }
+    </style>
+{% endblock %}
+
+{% block content %}
+
+<section class="registration-form-section">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="form-container" data-aos="fade-up">
+                    <!-- Form Header -->
+                    <div class="form-header">
+                        <h2>
+                            <i class="bi bi-person-plus-fill me-2"></i>
+                            {% if event %}{{ event.title }}{% else %}सामान्य पंजीकरण{% endif %}
+                        </h2>
+                        <p class="mb-0">कृपया सभी जानकारी सही तरीके से भरें</p>
+                    </div>
+                    
+                    <!-- Form Body -->
+                    <div class="form-body">
+                        <!-- Event Information -->
+                        {% if event %}
+                        <div class="event-info" data-aos="fade-up" data-aos-delay="200">
+                            <h5>कार्यक्रम विवरण</h5>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <i class="bi bi-calendar3"></i>
+                                        <span>{{ event.event_date|date:"d M Y, l" }}</span>
+                                    </div>
+                                    <div class="info-item">
+                                        <i class="bi bi-clock"></i>
+                                        <span>{{ event.event_date|time:"H:i" }} बजे</span>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="info-item">
+                                        <i class="bi bi-geo-alt-fill"></i>
+                                        <span>{{ event.venue }}</span>
+                                    </div>
+                                    {% if event.registration_fee > 0 %}
+                                    <div class="info-item">
+                                        <i class="bi bi-currency-rupee"></i>
+                                        <span>₹{{ event.registration_fee }}</span>
+                                    </div>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endif %}
+
+                        <!-- Error Messages -->
+                        {% if form.errors %}
+                            <div class="alert alert-danger" data-aos="fade-up" data-aos-delay="300">
+                                <h6><i class="bi bi-exclamation-triangle-fill me-2"></i>कृपया निम्नलिखित त्रुटियों को ठीक करें:</h6>
+                                <ul class="mb-0">
+                                {% for field in form %}
+                                    {% for error in field.errors %}
+                                        <li>{{ field.label }}: {{ error }}</li>
+                                    {% endfor %}
+                                {% endfor %}
+                                {% for error in form.non_field_errors %}
+                                    <li>{{ error }}</li>
+                                {% endfor %}
+                                </ul>
+                            </div>
+                        {% endif %}
+
+                        <!-- Multi-step Form -->
+                        <form method="post" id="registrationForm" data-aos="fade-up" data-aos-delay="400">
+                            {% csrf_token %}
+                            
+                            <!-- Step Indicator -->
+                            <div class="step-indicator">
+                                <div class="step active" id="step-1">1</div>
+                                <div class="step" id="step-2">2</div>
+                                <div class="step" id="step-3">3</div>
+                            </div>
+
+                            <!-- Step 1: Personal Information -->
+                            <div class="form-step active" id="step-1-content">
+                                <h4 class="mb-4">व्यक्तिगत जानकारी</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.full_name.label_tag }}
+                                            {{ form.full_name }}
+                                            {% if form.full_name.errors %}
+                                                <div class="invalid-feedback">{{ form.full_name.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.age.label_tag }}
+                                            {{ form.age }}
+                                            {% if form.age.errors %}
+                                                <div class="invalid-feedback">{{ form.age.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.gender.label_tag }}
+                                            {{ form.gender }}
+                                            {% if form.gender.errors %}
+                                                <div class="invalid-feedback">{{ form.gender.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.occupation.label_tag }}
+                                            {{ form.occupation }}
+                                            {% if form.occupation.errors %}
+                                                <div class="invalid-feedback">{{ form.occupation.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="text-end">
+                                    <button type="button" class="btn btn-next" onclick="nextStep(1)">
+                                        अगला <i class="bi bi-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 2: Contact Information -->
+                            <div class="form-step" id="step-2-content">
+                                <h4 class="mb-4">संपर्क जानकारी</h4>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.email.label_tag }}
+                                            {{ form.email }}
+                                            {% if form.email.errors %}
+                                                <div class="invalid-feedback">{{ form.email.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.phone.label_tag }}
+                                            {{ form.phone }}
+                                            {% if form.phone.errors %}
+                                                <div class="invalid-feedback">{{ form.phone.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group">
+                                            {{ form.district.label_tag }}
+                                            {{ form.district }}
+                                            {% if form.district.errors %}
+                                                <div class="invalid-feedback">{{ form.district.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                    <div class="col-12">
+                                        <div class="form-group">
+                                            {{ form.address.label_tag }}
+                                            {{ form.address }}
+                                            {% if form.address.errors %}
+                                                <div class="invalid-feedback">{{ form.address.errors.0 }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-prev" onclick="prevStep(2)">
+                                        <i class="bi bi-arrow-left"></i> पिछला
+                                    </button>
+                                    <button type="button" class="btn btn-next" onclick="nextStep(2)">
+                                        अगला <i class="bi bi-arrow-right"></i>
+                                    </button>
+                                </div>
+                            </div>
+
+                            <!-- Step 3: Confirmation -->
+                            <div class="form-step" id="step-3-content">
+                                <h4 class="mb-4">पुष्टि करें</h4>
+                                
+                                <div class="confirmation-details">
+                                    <div class="alert alert-info">
+                                        <h6><i class="bi bi-info-circle-fill me-2"></i>कृपया अपनी जानकारी की जांच करें:</h6>
+                                        <div id="confirmation-summary">
+                                            <!-- Details will be populated by JavaScript -->
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <div class="form-check mb-3">
+                                    <input class="form-check-input" type="checkbox" id="termsCheck" required>
+                                    <label class="form-check-label" for="termsCheck">
+                                        मैं सभी नियम और शर्तों से सहमत हूं और दी गई जानकारी सत्य है।
+                                    </label>
+                                </div>
+                                
+                                <div class="d-flex justify-content-between">
+                                    <button type="button" class="btn btn-prev" onclick="prevStep(3)">
+                                        <i class="bi bi-arrow-left"></i> पिछला
+                                    </button>
+                                    <button type="submit" class="btn btn-submit">
+                                        <i class="bi bi-check-circle-fill me-2"></i>पंजीकरण पूरा करें
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+let currentStep = 1;
+
+function nextStep(step) {
+    if (validateStep(step)) {
+        // Hide current step
+        document.getElementById(`step-${step}-content`).classList.remove('active');
+        document.getElementById(`step-${step}`).classList.add('completed');
+        
+        // Show next step
+        currentStep = step + 1;
+        document.getElementById(`step-${currentStep}-content`).classList.add('active');
+        document.getElementById(`step-${currentStep}`).classList.add('active');
+        
+        // Update confirmation summary if on step 3
+        if (currentStep === 3) {
+            updateConfirmationSummary();
+        }
+    }
+}
+
+function prevStep(step) {
+    // Hide current step
+    document.getElementById(`step-${step}-content`).classList.remove('active');
+    document.getElementById(`step-${step}`).classList.remove('active');
+    
+    // Show previous step
+    currentStep = step - 1;
+    document.getElementById(`step-${currentStep}-content`).classList.add('active');
+    document.getElementById(`step-${currentStep}`).classList.remove('completed');
+}
+
+function validateStep(step) {
+    let isValid = true;
+    const stepContent = document.getElementById(`step-${step}-content`);
+    const inputs = stepContent.querySelectorAll('input, select, textarea');
+    
+    inputs.forEach(input => {
+        if (input.hasAttribute('required') && !input.value.trim()) {
+            input.classList.add('is-invalid');
+            isValid = false;
+        } else {
+            input.classList.remove('is-invalid');
+        }
+        
+        // Specific validations
+        if (input.type === 'email' && input.value) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(input.value)) {
+                input.classList.add('is-invalid');
+                isValid = false;
+            }
+        }
+        
+        if (input.name === 'phone' && input.value) {
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(input.value.replace(/\s+/g, ''))) {
+                input.classList.add('is-invalid');
+                isValid = false;
+            }
+        }
+    });
+    
+    return isValid;
+}
+
+function updateConfirmationSummary() {
+    const form = document.getElementById('registrationForm');
+    const formData = new FormData(form);
+    let summary = '<div class="row">';
+    
+    const fields = [
+        {key: 'full_name', label: 'नाम'},
+        {key: 'age', label: 'आयु'},
+        {key: 'gender', label: 'लिंग'},
+        {key: 'occupation', label: 'व्यवसाय'},
+        {key: 'email', label: 'ईमेल'},
+        {key: 'phone', label: 'फोन'},
+        {key: 'district', label: 'जिला'},
+        {key: 'address', label: 'पता'}
+    ];
+    
+    fields.forEach((field, index) => {
+        if (index % 2 === 0) summary += '<div class="col-md-6">';
+        
+        let value = formData.get(field.key);
+        if (field.key === 'gender') {
+            const genderMap = {'M': 'पुरुष', 'F': 'महिला', 'O': 'अन्य'};
+            value = genderMap[value] || value;
+        }
+        if (field.key === 'district') {
+            const select = form.querySelector(`[name="${field.key}"]`);
+            value = select.options[select.selectedIndex].text;
+        }
+        
+        summary += `<p><strong>${field.label}:</strong> ${value || 'न/अ'}</p>`;
+        
+        if (index % 2 === 1 || index === fields.length - 1) summary += '</div>';
+    });
+    
+    summary += '</div>';
+    document.getElementById('confirmation-summary').innerHTML = summary;
+}
+
+// Form submission with loading state
+document.getElementById('registrationForm').addEventListener('submit', function(e) {
+    const submitBtn = this.querySelector('.btn-submit');
+    const originalText = submitBtn.innerHTML;
+    
+    submitBtn.innerHTML = '<i class="bi bi-hourglass-split me-2"></i>प्रक्रिया हो रही है...';
+    submitBtn.disabled = true;
+    
+    // Re-enable if there's an error (form will reload)
+    setTimeout(() => {
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    }, 5000);
+});
+
+// Real-time validation
+document.querySelectorAll('input, select, textarea').forEach(input => {
+    input.addEventListener('blur', function() {
+        if (this.hasAttribute('required') && !this.value.trim()) {
+            this.classList.add('is-invalid');
+        } else {
+            this.classList.remove('is-invalid');
+        }
+    });
+    
+    input.addEventListener('input', function() {
+        if (this.classList.contains('is-invalid') && this.value.trim()) {
+            this.classList.remove('is-invalid');
+        }
+    });
+});
+</script>
+{% endblock %}

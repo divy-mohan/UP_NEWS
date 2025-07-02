@@ -1,0 +1,485 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}संपर्क करें - प्रांतीय युवा प्रकोष्ठ उत्तर प्रदेश{% endblock %}
+
+{% block extra_css %}
+    <link rel="stylesheet" href="{% static 'css/contact.css' %}">
+{% endblock %}
+
+{% block content %}
+
+<!-- Contact Hero Section -->
+<section class="contact-hero-section" data-aos="fade-down">
+    <div class="hero-background">
+        <div class="hero-pattern"></div>
+        <div class="hero-gradient"></div>
+    </div>
+    <div class="container">
+        <div class="hero-content text-center">
+            <h1 class="hero-title">संपर्क करें</h1>
+            <p class="hero-subtitle">हमसे जुड़ें और अपने सवाल पूछें। हम आपकी सहायता के लिए तैयार हैं।</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Form Section -->
+<section class="contact-form-section py-5">
+    <div class="container">
+        <div class="row">
+            <!-- Contact Form -->
+            <div class="col-lg-8">
+                <div class="contact-form-card modern-card" data-aos="fade-right">
+                    <div class="form-header">
+                        <h3 class="form-title">
+                            <i class="bi bi-envelope-open-fill me-2"></i>
+                            अपना संदेश भेजें
+                        </h3>
+                        <p class="form-subtitle">कृपया नीचे दिया गया फॉर्म भरें। हम जल्द ही आपसे संपर्क करेंगे।</p>
+                    </div>
+                    
+                    <div class="form-body">
+                        <form method="post" id="contactForm" novalidate>
+                            {% csrf_token %}
+                            
+                            <div class="row g-4">
+                                <!-- Name Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.name.id_for_label }}" class="form-label">
+                                            <i class="bi bi-person-fill me-2"></i>{{ form.name.label }}
+                                        </label>
+                                        {{ form.name }}
+                                        {% if form.name.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ form.name.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Email Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.email.id_for_label }}" class="form-label">
+                                            <i class="bi bi-envelope-fill me-2"></i>{{ form.email.label }}
+                                        </label>
+                                        {{ form.email }}
+                                        {% if form.email.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ form.email.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Phone Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.phone.id_for_label }}" class="form-label">
+                                            <i class="bi bi-telephone-fill me-2"></i>{{ form.phone.label }}
+                                        </label>
+                                        {{ form.phone }}
+                                        {% if form.phone.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ form.phone.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Subject Field -->
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label for="{{ form.subject.id_for_label }}" class="form-label">
+                                            <i class="bi bi-tag-fill me-2"></i>{{ form.subject.label }}
+                                        </label>
+                                        {{ form.subject }}
+                                        {% if form.subject.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ form.subject.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Message Field -->
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="{{ form.message.id_for_label }}" class="form-label">
+                                            <i class="bi bi-chat-text-fill me-2"></i>{{ form.message.label }}
+                                        </label>
+                                        {{ form.message }}
+                                        <div class="character-counter">
+                                            <span id="char-count">0</span>/500 शब्द
+                                        </div>
+                                        {% if form.message.errors %}
+                                            <div class="invalid-feedback d-block">
+                                                <i class="bi bi-exclamation-circle me-1"></i>
+                                                {{ form.message.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                
+                                <!-- Submit Button -->
+                                <div class="col-12">
+                                    <button type="submit" class="btn btn-submit-contact">
+                                        <span class="btn-text">
+                                            <i class="bi bi-send-fill me-2"></i>संदेश भेजें
+                                        </span>
+                                        <span class="btn-loading d-none">
+                                            <i class="bi bi-hourglass-split me-2"></i>भेजा जा रहा है...
+                                        </span>
+                                    </button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Contact Information -->
+            <div class="col-lg-4">
+                <!-- Contact Details Card -->
+                <div class="contact-info-card modern-card" data-aos="fade-left" data-aos-delay="200">
+                    <div class="info-header">
+                        <h4 class="info-title">
+                            <i class="bi bi-telephone-fill me-2"></i>
+                            संपर्क जानकारी
+                        </h4>
+                    </div>
+                    
+                    <div class="info-body">
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-geo-alt-fill"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>पता</h6>
+                                <p>सुल्तानपुर - उत्तर प्रदेश</p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-telephone-fill"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>फोन नंबर</h6>
+                                <p>
+                                    <a href="tel:+919415156122">+91 9415156122</a><br>
+                                    <a href="tel:+91700722727">+91 700722727</a>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="bi bi-envelope-fill"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>ईमेल</h6>
+                                <p>
+                                    <a href="mailto:info@pranteeyyuva.org">info@pranteeyyuva.org</a>
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <div class="contact-item">
+                            <div class="contact-icon">
+                                <i class="fab fa-whatsapp"></i>
+                            </div>
+                            <div class="contact-content">
+                                <h6>WhatsApp</h6>
+                                <p>
+                                    <a href="https://wa.me/919415156122" target="_blank">+91 9415156122</a>
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Office Hours Card -->
+                <div class="office-hours-card modern-card" data-aos="fade-left" data-aos-delay="400">
+                    <div class="info-header">
+                        <h5 class="info-title">
+                            <i class="bi bi-clock-fill me-2"></i>
+                            कार्यालय समय
+                        </h5>
+                    </div>
+                    
+                    <div class="info-body">
+                        <div class="hours-item">
+                            <span class="day">सोमवार - शुक्रवार</span>
+                            <span class="time">9:00 AM - 6:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">शनिवार</span>
+                            <span class="time">9:00 AM - 2:00 PM</span>
+                        </div>
+                        <div class="hours-item">
+                            <span class="day">रविवार</span>
+                            <span class="time">बंद</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Social Media Card -->
+                <div class="social-media-card modern-card" data-aos="fade-left" data-aos-delay="600">
+                    <div class="info-header">
+                        <h5 class="info-title">
+                            <i class="bi bi-share-fill me-2"></i>
+                            सोशल मीडिया
+                        </h5>
+                    </div>
+                    
+                    <div class="info-body">
+                        <p class="social-description">हमसे जुड़ें और नवीनतम अपडेट्स पाएं:</p>
+                        <div class="social-links">
+                            <a href="#" class="social-link facebook" title="Facebook">
+                                <i class="fab fa-facebook-f"></i>
+                                <span>Facebook</span>
+                            </a>
+                            <a href="#" class="social-link twitter" title="Twitter">
+                                <i class="fab fa-twitter"></i>
+                                <span>Twitter</span>
+                            </a>
+                            <a href="#" class="social-link instagram" title="Instagram">
+                                <i class="fab fa-instagram"></i>
+                                <span>Instagram</span>
+                            </a>
+                            <a href="#" class="social-link youtube" title="YouTube">
+                                <i class="fab fa-youtube"></i>
+                                <span>YouTube</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- FAQ Section -->
+<section class="faq-section py-5" data-aos="fade-up">
+    <div class="container">
+        <div class="section-header text-center mb-5">
+            <h3 class="section-title">अक्सर पूछे जाने वाले प्रश्न</h3>
+            <p class="section-subtitle">यहाँ कुछ सामान्य प्रश्न और उनके उत्तर हैं</p>
+        </div>
+        
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="faq-accordion">
+                    <div class="accordion" id="faqAccordion">
+                        <!-- FAQ Item 1 -->
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq1" aria-expanded="true" aria-controls="faq1">
+                                    प्रांतीय युवा प्रकोष्ठ में कैसे जुड़ें?
+                                </button>
+                            </h6>
+                            <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    आप हमारी वेबसाइट पर पंजीकरण फॉर्म भरकर या हमारे कार्यालय में आकर सदस्यता ले सकते हैं। 
+                                    पंजीकरण निःशुल्क है और सभी युवा स्वागत हैं।
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 2 -->
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq2" aria-expanded="false" aria-controls="faq2">
+                                    क्या कोई आयु सीमा है?
+                                </button>
+                            </h6>
+                            <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    हमारे संगठन में 16 से 35 वर्ष की आयु के युवा शामिल हो सकते हैं। 
+                                    हालांकि, कुछ विशेष कार्यक्रमों में अन्य आयु समूह भी भाग ले सकते हैं।
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 3 -->
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq3" aria-expanded="false" aria-controls="faq3">
+                                    कार्यक्रमों में भाग लेने के लिए क्या करना होगा?
+                                </button>
+                            </h6>
+                            <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    हमारी वेबसाइट पर आने वाले कार्यक्रमों की जानकारी देखें और ऑनलाइन पंजीकरण करें। 
+                                    कुछ कार्यक्रम निःशुल्क हैं और कुछ में नाममात्र शुल्क हो सकता है।
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <!-- FAQ Item 4 -->
+                        <div class="accordion-item">
+                            <h6 class="accordion-header">
+                                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" 
+                                        data-bs-target="#faq4" aria-expanded="false" aria-controls="faq4">
+                                    कैसे पता चलेगा कि मेरा संदेश मिल गया?
+                                </button>
+                            </h6>
+                            <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faqAccordion">
+                                <div class="accordion-body">
+                                    संदेश भेजने के तुरंत बाद आपको एक पुष्टि ईमेल मिलेगी। 
+                                    हम 24-48 घंटों के भीतर आपके प्रश्न का उत्तर देने की कोशिश करते हैं।
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+{% endblock %}
+
+{% block extra_js %}
+<script>
+$(document).ready(function() {
+    // Character counter for message field
+    const messageField = $('#id_message');
+    const charCounter = $('#char-count');
+    
+    messageField.on('input', function() {
+        const length = $(this).val().length;
+        charCounter.text(length);
+        
+        if (length > 450) {
+            charCounter.css('color', '#dc3545');
+        } else {
+            charCounter.css('color', '#6c757d');
+        }
+    });
+    
+    // Form submission with loading state
+    $('#contactForm').on('submit', function(e) {
+        const submitBtn = $(this).find('.btn-submit-contact');
+        const btnText = submitBtn.find('.btn-text');
+        const btnLoading = submitBtn.find('.btn-loading');
+        
+        // Show loading state
+        btnText.addClass('d-none');
+        btnLoading.removeClass('d-none');
+        submitBtn.prop('disabled', true);
+        
+        // Reset loading state after 5 seconds (fallback)
+        setTimeout(() => {
+            btnText.removeClass('d-none');
+            btnLoading.addClass('d-none');
+            submitBtn.prop('disabled', false);
+        }, 5000);
+    });
+    
+    // Real-time form validation
+    $('input, select, textarea').on('blur', function() {
+        const field = $(this);
+        const fieldGroup = field.closest('.form-group');
+        
+        // Remove existing validation classes
+        field.removeClass('is-valid is-invalid');
+        fieldGroup.find('.valid-feedback, .invalid-feedback').remove();
+        
+        // Validate required fields
+        if (field.prop('required') && !field.val().trim()) {
+            field.addClass('is-invalid');
+            fieldGroup.append('<div class="invalid-feedback"><i class="bi bi-exclamation-circle me-1"></i>यह फील्ड आवश्यक है।</div>');
+            return;
+        }
+        
+        // Email validation
+        if (field.attr('type') === 'email' && field.val()) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            if (!emailRegex.test(field.val())) {
+                field.addClass('is-invalid');
+                fieldGroup.append('<div class="invalid-feedback"><i class="bi bi-exclamation-circle me-1"></i>कृपया सही ईमेल पता डालें।</div>');
+                return;
+            }
+        }
+        
+        // Phone validation
+        if (field.attr('name') === 'phone' && field.val()) {
+            const phoneRegex = /^[0-9]{10}$/;
+            if (!phoneRegex.test(field.val().replace(/\s+/g, ''))) {
+                field.addClass('is-invalid');
+                fieldGroup.append('<div class="invalid-feedback"><i class="bi bi-exclamation-circle me-1"></i>कृपया 10 अंकों का सही फोन नंबर डालें।</div>');
+                return;
+            }
+        }
+        
+        // If validation passes
+        if (field.val().trim()) {
+            field.addClass('is-valid');
+        }
+    });
+    
+    // Clear validation on input
+    $('input, select, textarea').on('input', function() {
+        const field = $(this);
+        if (field.hasClass('is-invalid') && field.val().trim()) {
+            field.removeClass('is-invalid');
+            field.closest('.form-group').find('.invalid-feedback').remove();
+        }
+    });
+    
+    // Social media link tracking
+    $('.social-link').on('click', function(e) {
+        e.preventDefault();
+        const platform = $(this).attr('class').split(' ').find(cls => 
+            ['facebook', 'twitter', 'instagram', 'youtube'].includes(cls)
+        );
+        console.log(`Social media clicked: ${platform}`);
+        
+        // Add click effect
+        $(this).addClass('clicked');
+        setTimeout(() => {
+            $(this).removeClass('clicked');
+        }, 200);
+    });
+    
+    // FAQ accordion tracking
+    $('.accordion-button').on('click', function() {
+        const faqTitle = $(this).text().trim();
+        console.log(`FAQ clicked: ${faqTitle}`);
+    });
+});
+
+// Contact form success animation
+function showSuccessMessage() {
+    const successHtml = `
+        <div class="success-message-overlay">
+            <div class="success-message">
+                <div class="success-icon">
+                    <i class="bi bi-check-circle-fill"></i>
+                </div>
+                <h4>संदेश भेज दिया गया!</h4>
+                <p>धन्यवाद! हम जल्द ही आपसे संपर्क करेंगे।</p>
+            </div>
+        </div>
+    `;
+    
+    $('body').append(successHtml);
+    
+    setTimeout(() => {
+        $('.success-message-overlay').fadeOut(() => {
+            $('.success-message-overlay').remove();
+        });
+    }, 3000);
+}
+</script>
+{% endblock %}
