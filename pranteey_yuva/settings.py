@@ -153,6 +153,13 @@ SECURE_BROWSER_XSS_FILTER = True
 SECURE_CONTENT_TYPE_NOSNIFF = True
 X_FRAME_OPTIONS = 'DENY'
 
+# CSRF Settings for Replit
+CSRF_TRUSTED_ORIGINS = [
+    'https://*.replit.dev',
+    'https://*.replit.co',
+    'https://*.replit.app',
+]
+
 # Messages Framework
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
