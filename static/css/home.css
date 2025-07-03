@@ -47,7 +47,7 @@
 
 .hero-content {
     position: relative;
-    z-index: 2;
+    z-index: 3;
 }
 
 .hero-badge-wrapper {
@@ -864,6 +864,7 @@
 
 .btn-cta-primary:hover {
     transform: translateY(-3px);
+    color: white;
     box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
     color: #667eea;
 }
