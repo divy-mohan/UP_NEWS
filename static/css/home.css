@@ -209,7 +209,7 @@
 
 .hero-image-wrapper {
     position: relative;
-    max-width: 500px;
+    
     width: 100%;
 }
 
@@ -227,7 +227,7 @@
     transform: translate(-50%, -50%);
     width: 80%;
     height: 80%;
-    background: radial-gradient(circle, rgba(253, 133, 53, 0.3) 0%, transparent 70%);
+    background: radial-gradient(circle, rgba(255, 255, 255, 0.3) 0%, transparent 70%);
     border-radius: 50%;
     animation: pulse 4s ease-in-out infinite;
     z-index: -1;
@@ -241,7 +241,7 @@
     justify-content: center;
     align-items: center;
     width: 100%;
-    max-width: 500px;
+    max-width: 700px; /* Increased from 500px to 700px */
     margin: 0 auto;
 }
 

@@ -118,13 +118,13 @@
                         {% endif %}
                     </div>
                     {% else %}
-                    <!-- Default content when no banners -->
+                    {% comment %} <!-- Default content when no banners -->
                     <div class="hero-image-section">
                         <div class="hero-image-wrapper">
                             <img src="{% static 'images/youth.svg' %}" alt="Youth Illustration" class="hero-image">
                             <div class="hero-image-glow"></div>
                         </div>
-                    </div>
+                    </div> {% endcomment %}
                     {% endif %}
                 </div>
             </div>
