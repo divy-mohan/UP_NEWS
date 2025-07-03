@@ -15,65 +15,72 @@
         <div class="hero-pattern"></div>
         <div class="hero-gradient"></div>
     </div>
-    
+
     <div class="container">
         <div class="row align-items-center min-vh-100">
-            <div class="col-lg-6 order-2 order-lg-1" data-aos="fade-right" data-aos-delay="200">
+
+            <!-- Left Column -->
+            <div class="col-lg-6 order-1 order-lg-1" data-aos="fade-right" data-aos-delay="200">
                 <div class="hero-content">
-                    <!-- Badge -->
-                    <div class="hero-badge-wrapper mb-4">
-                        <span class="hero-badge">
-                            <i class="bi bi-lightning-charge-fill"></i>
-                            <span>युवा शक्ति</span>
-                        </span>
+
+                    <!-- ✅ TITLE ONLY on small devices -->
+                    <div class="d-lg-none mb-4 text-center">
+                        <h1 class="hero-title mb-2">
+                            <span class="title-line">प्रांतीय युवा प्रकोष्ठ</span>
+                            <span class="title-highlight">उत्तर प्रदेश</span>
+                        </h1>
                     </div>
-                    
-                    <!-- Main Title -->
-                    <h1 class="hero-title mb-4">
-                        <span class="title-line">प्रांतीय युवा प्रकोष्ठ</span>
-                        <span class="title-highlight">उत्तर प्रदेश</span>
-                    </h1>
-                    
-                    <!-- Description -->
-                    <p class="hero-description mb-4">
-                        <i class="bi bi-people-fill text-success me-2"></i>
-                        युवाओं के सशक्तिकरण, शिक्षा और समाजसेवा के लिए समर्पित संगठन।
-                        <br>
-                        <i class="bi bi-arrow-up-right-circle-fill text-primary me-2"></i>
-                        हमारे साथ जुड़ें और उत्तर प्रदेश के विकास में योगदान दें।
-                    </p>
-                    
-                    <!-- CTA Buttons -->
-                    <div class="hero-buttons mb-4">
-                        <a href="{% url 'events:register' %}" class="btn btn-hero-primary">
-                            <i class="bi bi-person-plus-fill me-2"></i>अभी जुड़ें
-                            <span class="btn-arrow">→</span>
-                        </a>
-                        <a href="{% url 'core:about' %}" class="btn btn-hero-secondary">
-                            <i class="bi bi-info-circle-fill me-2"></i>और जानें
-                        </a>
-                    </div>
-                    
-                    <!-- Social Links -->
-                    <div class="hero-social">
-                        <span class="social-label">हमसे जुड़ें:</span>
-                        <a href="#" class="hero-social-link">
-                            <i class="bi bi-facebook"></i>
-                        </a>
-                        <a href="#" class="hero-social-link">
-                            <i class="bi bi-instagram"></i>
-                        </a>
-                        <a href="#" class="hero-social-link">
-                            <i class="bi bi-twitter-x"></i>
-                        </a>
-                        <a href="#" class="hero-social-link">
-                            <i class="bi bi-youtube"></i>
-                        </a>
+
+                    <!-- ✅ FULL CONTENT on large devices -->
+                    <div class="d-none d-lg-block">
+                        <!-- Badge -->
+                        <div class="hero-badge-wrapper mb-4">
+                            <span class="hero-badge">
+                                <i class="bi bi-lightning-charge-fill"></i>
+                                <span>युवा शक्ति</span>
+                            </span>
+                        </div>
+
+                        <!-- Main Title -->
+                        <h1 class="hero-title mb-4">
+                            <span class="title-line">प्रांतीय युवा प्रकोष्ठ</span>
+                            <span class="title-highlight">उत्तर प्रदेश</span>
+                        </h1>
+
+                        <!-- Description -->
+                        <p class="hero-description mb-4">
+                            <i class="bi bi-people-fill text-success me-2"></i>
+                            युवाओं के सशक्तिकरण, शिक्षा और समाजसेवा के लिए समर्पित संगठन।
+                            <br>
+                            <i class="bi bi-arrow-up-right-circle-fill text-primary me-2"></i>
+                            हमारे साथ जुड़ें और उत्तर प्रदेश के विकास में योगदान दें।
+                        </p>
+
+                        <!-- CTA Buttons -->
+                        <div class="hero-buttons mb-4">
+                            <a href="{% url 'events:register' %}" class="btn btn-hero-primary">
+                                <i class="bi bi-person-plus-fill me-2"></i>अभी जुड़ें
+                                <span class="btn-arrow">→</span>
+                            </a>
+                            <a href="{% url 'core:about' %}" class="btn btn-hero-secondary">
+                                <i class="bi bi-info-circle-fill me-2"></i>और जानें
+                            </a>
+                        </div>
+
+                        <!-- Social Links -->
+                        <div class="hero-social">
+                            <span class="social-label">हमसे जुड़ें:</span>
+                            <a href="#" class="hero-social-link"><i class="bi bi-facebook"></i></a>
+                            <a href="#" class="hero-social-link"><i class="bi bi-instagram"></i></a>
+                            <a href="#" class="hero-social-link"><i class="bi bi-twitter-x"></i></a>
+                            <a href="#" class="hero-social-link"><i class="bi bi-youtube"></i></a>
+                        </div>
                     </div>
                 </div>
             </div>
-            
-            <div class="col-lg-6 order-1 order-lg-2" data-aos="fade-left" data-aos-delay="400">
+
+            <!-- Right Column: Banner -->
+            <div class="col-lg-6 order-2 order-lg-2" data-aos="fade-left" data-aos-delay="400">
                 <div class="hero-banner-section">
                     {% if banners %}
                     <div id="heroBannerCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
@@ -82,11 +89,11 @@
                             <div class="carousel-item {% if forloop.first %}active{% endif %}">
                                 <div class="banner-wrapper">
                                     {% if banner.link %}
-                                        <a href="{{ banner.link }}" class="banner-link">
-                                            <img src="{{ banner.image.url }}" class="banner-image" alt="{{ banner.title }}">
-                                        </a>
-                                    {% else %}
+                                    <a href="{{ banner.link }}" class="banner-link">
                                         <img src="{{ banner.image.url }}" class="banner-image" alt="{{ banner.title }}">
+                                    </a>
+                                    {% else %}
+                                    <img src="{{ banner.image.url }}" class="banner-image" alt="{{ banner.title }}">
                                     {% endif %}
                                     <div class="banner-overlay">
                                         <h5 class="banner-title">{{ banner.title }}</h5>
@@ -95,7 +102,7 @@
                             </div>
                             {% endfor %}
                         </div>
-                        
+
                         {% if banners|length > 1 %}
                         <!-- Carousel Controls -->
                         <button class="carousel-control-prev" type="button" data-bs-target="#heroBannerCarousel" data-bs-slide="prev">
@@ -106,31 +113,56 @@
                             <span class="carousel-control-next-icon" aria-hidden="true"></span>
                             <span class="visually-hidden">Next</span>
                         </button>
-                        
+
                         <!-- Indicators -->
                         <div class="carousel-indicators">
                             {% for banner in banners %}
-                            <button type="button" data-bs-target="#heroBannerCarousel" data-bs-slide-to="{{ forloop.counter0 }}" 
-                                    {% if forloop.first %}class="active" aria-current="true"{% endif %} 
-                                    aria-label="Slide {{ forloop.counter }}"></button>
+                            <button type="button" data-bs-target="#heroBannerCarousel" data-bs-slide-to="{{ forloop.counter0 }}"
+                                {% if forloop.first %}class="active" aria-current="true"{% endif %}
+                                aria-label="Slide {{ forloop.counter }}"></button>
                             {% endfor %}
                         </div>
                         {% endif %}
                     </div>
-                    {% else %}
-                    {% comment %} <!-- Default content when no banners -->
-                    <div class="hero-image-section">
-                        <div class="hero-image-wrapper">
-                            <img src="{% static 'images/youth.svg' %}" alt="Youth Illustration" class="hero-image">
-                            <div class="hero-image-glow"></div>
-                        </div>
-                    </div> {% endcomment %}
                     {% endif %}
                 </div>
+
+                <!-- ✅ Extra Content Shown After Banner on Small Devices -->
+                <div class="d-lg-none mt-4">
+                    <p class="hero-description mb-4">
+                        <i class="bi bi-people-fill text-success me-2"></i>
+                        युवाओं के सशक्तिकरण, शिक्षा और समाजसेवा के लिए समर्पित संगठन।
+                        <br>
+                        <i class="bi bi-arrow-up-right-circle-fill text-primary me-2"></i>
+                        हमारे साथ जुड़ें और उत्तर प्रदेश के विकास में योगदान दें।
+                    </p>
+
+                    <!-- CTA Buttons -->
+                    <div class="hero-buttons mb-4">
+                        <a href="{% url 'events:register' %}" class="btn btn-hero-primary">
+                            <i class="bi bi-person-plus-fill me-2"></i>अभी जुड़ें
+                            <span class="btn-arrow">→</span>
+                        </a>
+                        <a href="{% url 'core:about' %}" class="btn btn-hero-secondary">
+                            <i class="bi bi-info-circle-fill me-2"></i>और जानें
+                        </a>
+                    </div>
+
+                    <!-- Social Links -->
+                    <div class="hero-social">
+                        <span class="social-label">हमसे जुड़ें:</span>
+                        <a href="#" class="hero-social-link"><i class="bi bi-facebook"></i></a>
+                        <a href="#" class="hero-social-link"><i class="bi bi-instagram"></i></a>
+                        <a href="#" class="hero-social-link"><i class="bi bi-twitter-x"></i></a>
+                        <a href="#" class="hero-social-link"><i class="bi bi-youtube"></i></a>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 </section>
+
 
 <!-- Featured News Section -->
 {% if featured_news %}
