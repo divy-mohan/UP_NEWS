@@ -323,6 +323,28 @@ a:hover {
     width: 100%;
     overflow: hidden;
     line-height: 0;
+    z-index: 0; /* Lowered z-index */
+}
+
+.footer-content {
+    position: relative;
+    z-index: 2; /* Make sure it's above the wave */
+    padding-top: 80px; /* Increase padding to push content below the wave */
+}
+
+@media (max-width: 991.98px) {
+    .footer-content {
+        padding-top: 60px;
+    }
+}
+
+@media (max-width: 575.98px) {
+    .footer-content {
+        padding-top: 50px; /* More padding for mobile */
+    }
+    .footer-wave svg {
+        height: 40px; /* Slightly larger wave for better clearance */
+    }
 }
 
 .footer-wave svg {
@@ -342,7 +364,8 @@ a:hover {
 }
 
 .footer-brand img {
-    filter: brightness(0) invert(1);
+    position: relative;
+    z-index: 3;
 }
 
 .footer-title {
@@ -413,6 +436,42 @@ a:hover {
     color: var(--text-light);
     transform: translateY(-3px) scale(1.1);
     box-shadow: var(--shadow-lg);
+    text-decoration: none;
+}
+
+/* Facebook */
+.social-link[title="Facebook"]:hover,
+.social-link .fa-facebook-f:hover {
+    background: #1877f3;
+    color: #fff;
+}
+
+/* Twitter */
+.social-link[title="Twitter"]:hover,
+.social-link .fa-twitter:hover {
+    background: #1da1f2;
+    color: #fff;
+}
+
+/* Instagram */
+.social-link[title="Instagram"]:hover,
+.social-link .fa-instagram:hover {
+    background: radial-gradient(circle at 30% 110%, #fdf497 0%, #fdf497 5%, #fd5949 45%, #d6249f 60%, #285aeb 90%);
+    color: #fff;
+}
+
+/* YouTube */
+.social-link[title="YouTube"]:hover,
+.social-link .fa-youtube:hover {
+    background: #ff0000;
+    color: #fff;
+}
+
+/* WhatsApp */
+.social-link[title="WhatsApp"]:hover,
+.social-link .fa-whatsapp:hover {
+    background: #25d366;
+    color: #fff;
 }
 
 /* Contact Info */
@@ -506,6 +565,7 @@ a:hover {
 }
 
 /* Breadcrumb Enhancement */
+
 .modern-breadcrumb {
     background: transparent;
     padding: 0;
@@ -608,7 +668,10 @@ a:hover {
     }
     
     .footer-wave svg {
-        height: 40px;
+        height: 30px; /* Smaller wave on mobile */
+    }
+    .footer-content {
+        padding-top: 30px;
     }
 }
 
