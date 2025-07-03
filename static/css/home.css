@@ -8,7 +8,7 @@
     overflow: hidden;
     display: flex;
     align-items: center;
-    padding: 2rem 0;
+    padding: 1rem 0 2rem 0; /* Reduce top padding */
 }
 
 .hero-background {
@@ -74,7 +74,7 @@
 .hero-title {
     font-size: clamp(2.5rem, 5vw, 4rem);
     font-weight: 800;
-    line-height: 1.1;
+    line-height: 1.4;
     margin-bottom: 2rem;
 }
 
@@ -91,11 +91,13 @@
     -webkit-text-fill-color: transparent;
     background-clip: text;
     animation: gradient-shift 3s ease-in-out infinite;
+    margin-top: -4%;
 }
 
 .hero-description {
     font-size: 1.2rem;
     color: #555;
+    font-weight: bold;
     line-height: 1.7;
     margin-bottom: 2.5rem;
     font-weight: 500;

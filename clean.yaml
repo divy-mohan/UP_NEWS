@@ -1,0 +1,6 @@
+# for windows 
+Get-ChildItem -Recurse -Include *.pyc | Remove-Item -Force;
+Get-ChildItem -Recurse -Directory -Filter "__pycache__" | Remove-Item -Recurse -Force
+
+# for bash/linux
+find . -name "*.pyc" -delete && find . -type d -name "__pycache__" -exec rm -r {} +
