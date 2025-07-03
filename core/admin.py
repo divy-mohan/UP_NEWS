@@ -1,5 +1,5 @@
 from django.contrib import admin
-from .models import District, Category, SiteSettings, Banner
+from .models import District, Category, SiteSettings, Banner, HomepageStats
 
 @admin.register(District)
 class DistrictAdmin(admin.ModelAdmin):
@@ -32,3 +32,11 @@ class BannerAdmin(admin.ModelAdmin):
     list_editable = ('is_active', 'order')
     search_fields = ('title',)
     readonly_fields = ('created_at',)
+
+@admin.register(HomepageStats)
+class HomepageStatsAdmin(admin.ModelAdmin):
+    def has_add_permission(self, request):
+        # Only allow one entry
+        return not HomepageStats.objects.exists()
+    def has_delete_permission(self, request, obj=None):
+        return False

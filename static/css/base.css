@@ -138,8 +138,16 @@ a:hover {
     background: linear-gradient(135deg, var(--secondary-color) 0%, #ffe0b2 100%);
     border-bottom: 1px solid rgba(253, 133, 53, 0.1);
     box-shadow: var(--shadow-md);
-    position: relative;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
     z-index: var(--z-sticky);
+    transition: var(--transition-fast);
+}
+
+.main-header.scrolled {
+    box-shadow: var(--shadow-xl);
 }
 
 .navbar {
@@ -601,40 +609,16 @@ a:hover {
 /* Responsive Design */
 @media (max-width: 991.98px) {
     .navbar-collapse {
-        background: var(--bg-white);
-        margin-top: var(--spacing-md);
-        padding: var(--spacing-md);
-        border-radius: var(--radius-lg);
-        box-shadow: var(--shadow-lg);
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.4s cubic-bezier(0.4,0,0.2,1);
     }
-    
-    .modern-nav-link {
-        margin: var(--spacing-xs) 0;
-        text-align: center;
+    .navbar-collapse.show {
+        max-height: 500px; /* or a value large enough for your menu */
     }
     
     .footer-content {
-        text-align: center;
-    }
-    
-    .footer-content .row > div {
-        margin-bottom: var(--spacing-lg);
-    }
-    
-    .social-links {
-        justify-content: center;
-    }
-    
-    .contact-info {
-        text-align: left;
-    }
-    
-    .footer-bottom {
-        text-align: center;
-    }
-    
-    .footer-bottom .row > div {
-        margin-bottom: var(--spacing-md);
+        padding-top: 60px;
     }
 }
 

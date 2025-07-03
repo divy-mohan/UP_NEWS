@@ -254,7 +254,7 @@
                         <i class="fas fa-users"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number" data-count="5000">0</h3>
+                        <h3 class="stat-number" data-count="{{ stats.active_members|default:0 }}">0</h3>
                         <p class="stat-label">सक्रिय सदस्य</p>
                     </div>
                     <div class="stat-decoration"></div>
@@ -267,7 +267,7 @@
                         <i class="fas fa-calendar-check"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number" data-count="150">0</h3>
+                        <h3 class="stat-number" data-count="{{ stats.events_held|default:0 }}">0</h3>
                         <p class="stat-label">आयोजित कार्यक्रम</p>
                     </div>
                     <div class="stat-decoration"></div>
@@ -280,7 +280,7 @@
                         <i class="fas fa-map-marked-alt"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number" data-count="38">0</h3>
+                        <h3 class="stat-number" data-count="{{ stats.districts_covered|default:0 }}">0</h3>
                         <p class="stat-label">जिले कवर</p>
                     </div>
                     <div class="stat-decoration"></div>
@@ -293,7 +293,7 @@
                         <i class="fas fa-hand-holding-heart"></i>
                     </div>
                     <div class="stat-content">
-                        <h3 class="stat-number" data-count="100">0</h3>
+                        <h3 class="stat-number" data-count="{{ stats.social_projects|default:0 }}">0</h3>
                         <p class="stat-label">समाजसेवा परियोजनाएं</p>
                     </div>
                     <div class="stat-decoration"></div>
@@ -306,6 +306,9 @@
 <!-- Upcoming Events Section -->
 {% if upcoming_events %}
 <section class="events-section py-5" data-aos="fade-left">
+    <div class="events-background">
+        <div class="events-pattern"></div>
+    </div>
     <div class="container">
         <div class="section-header text-center mb-5">
             <div class="section-badge">

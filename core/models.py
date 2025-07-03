@@ -63,3 +63,16 @@ class Banner(models.Model):
     
     def __str__(self):
         return self.title
+
+class HomepageStats(models.Model):
+    active_members = models.PositiveIntegerField(default=0, verbose_name="सक्रिय सदस्य")
+    events_held = models.PositiveIntegerField(default=0, verbose_name="आयोजित कार्यक्रम")
+    districts_covered = models.PositiveIntegerField(default=0, verbose_name="जिले कवर")
+    social_projects = models.PositiveIntegerField(default=0, verbose_name="समाजसेवा परियोजनाएं")
+
+    class Meta:
+        verbose_name = "Homepage आकड़े"
+        verbose_name_plural = "Homepage आकड़े"
+
+    def __str__(self):
+        return "Homepage आकड़े"
